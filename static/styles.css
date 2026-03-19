@@ -11,11 +11,12 @@ body {
   font-family: Arial, sans-serif;
   background: #eef2f7;
   color: #1f2937;
+  font-size: 14px;
 }
 
 .hero {
   min-height: auto;
-  padding: 16px 20px 10px;
+  padding: 10px 16px 6px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -23,10 +24,10 @@ body {
 
 .hero-top {
   display: grid;
-  grid-template-columns: 120px 1fr 120px;
+  grid-template-columns: 96px 1fr 96px;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .hero-left {
@@ -40,31 +41,32 @@ body {
 
 .hero-center h1 {
   margin: 0;
-  font-size: 2rem;
-  line-height: 1.15;
+  font-size: 1.55rem;
+  line-height: 1.1;
 }
 
 .subtitle {
-  margin: 10px auto 8px;
+  margin: 6px auto 5px;
   max-width: 900px;
-  line-height: 1.45;
+  line-height: 1.35;
   color: #4b5563;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 .lang-note {
-  margin: 0 0 10px;
-  font-size: 0.96rem;
+  margin: 0 0 6px;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #0f62fe;
 }
 
 .scroll-link {
   display: inline-block;
-  margin-top: 2px;
+  margin-top: 0;
   color: #0f62fe;
   text-decoration: none;
   font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .scroll-link:hover {
@@ -72,24 +74,24 @@ body {
 }
 
 .profile-pic {
-  width: 92px;
-  height: 92px;
-  border-radius: 18px;
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
   object-fit: cover;
-  border: 3px solid white;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  border: 2px solid white;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
 }
 
 .hero-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .card {
-  border-radius: 20px;
-  padding: 18px;
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 .examples-card {
@@ -104,45 +106,47 @@ body {
 
 .card h2 {
   margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.compact-card {
-  padding-bottom: 14px;
-}
-
-.scroll-box {
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-/* THIS is the important part, makes the examples box small */
-.compact-scroll {
-  max-height: 115px;
-}
-
-.qa-group {
-  margin-bottom: 14px;
-}
-
-.qa-group h3 {
   margin-bottom: 8px;
   font-size: 1rem;
 }
 
+.compact-card {
+  padding-bottom: 12px;
+}
+
+.scroll-box {
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.compact-scroll {
+  max-height: 78px;
+}
+
+.qa-group {
+  margin-bottom: 10px;
+}
+
+.qa-group h3 {
+  margin-bottom: 5px;
+  font-size: 0.94rem;
+}
+
 .qa-group p {
-  margin: 6px 0;
-  line-height: 1.35;
+  margin: 4px 0;
+  line-height: 1.25;
+  font-size: 0.9rem;
 }
 
 .qa-group ul {
-  margin: 8px 0 0 18px;
+  margin: 6px 0 0 16px;
   padding: 0;
 }
 
 .qa-group li {
-  margin-bottom: 6px;
-  line-height: 1.35;
+  margin-bottom: 4px;
+  line-height: 1.25;
+  font-size: 0.9rem;
 }
 
 .chat-card {
@@ -152,29 +156,32 @@ body {
 
 .chat-desc {
   margin-top: 0;
+  margin-bottom: 8px;
   color: #374151;
   font-weight: 600;
+  font-size: 0.92rem;
 }
 
 .chat-window {
   flex: 1;
-  min-height: 230px;
-  max-height: 260px;
+  min-height: 150px;
+  max-height: 170px;
   overflow-y: auto;
   background: #ffffff;
   border: 1px solid #cbd5e1;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .message {
   max-width: 88%;
-  padding: 12px 14px;
-  border-radius: 14px;
-  margin-bottom: 12px;
-  line-height: 1.5;
+  padding: 9px 11px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  line-height: 1.35;
   white-space: pre-wrap;
+  font-size: 0.93rem;
 }
 
 .message.user {
@@ -191,23 +198,23 @@ body {
 
 .chat-input-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .chat-input-row input {
   flex: 1;
   border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 1rem;
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 0.95rem;
   background: white;
 }
 
 .chat-input-row button {
   border: none;
-  border-radius: 12px;
-  padding: 0 18px;
-  font-size: 1rem;
+  border-radius: 10px;
+  padding: 0 14px;
+  font-size: 0.93rem;
   cursor: pointer;
   background: #0f62fe;
   color: white;
@@ -219,75 +226,90 @@ body {
 }
 
 .tables-section {
-  padding: 18px 20px 24px;
+  padding: 14px 16px 22px;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+}
+
+.section-header p {
+  margin: 0;
+  font-size: 0.92rem;
 }
 
 .table-jump {
-  margin-top: 14px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
+.table-jump label {
+  font-size: 0.92rem;
+}
+
 .table-jump select {
-  min-width: 220px;
-  padding: 10px 12px;
+  min-width: 200px;
+  padding: 8px 10px;
   border: 1px solid #d1d5db;
-  border-radius: 10px;
-  font-size: 0.98rem;
+  border-radius: 9px;
+  font-size: 0.92rem;
   background: white;
 }
 
 .table-card {
   background: white;
-  border-radius: 20px;
-  padding: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .table-header h3 {
   margin: 0;
+  font-size: 1rem;
 }
 
 .table-header a {
   color: #0f62fe;
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .table-wrap {
   overflow-x: auto;
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  border-radius: 12px;
   background: white;
 }
 
-/* fixed height for long tables like employees */
 .table-scroll {
-  max-height: 420px;
+  max-height: 360px;
   overflow-y: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
 }
 
 thead {
@@ -300,7 +322,7 @@ thead {
 th,
 td {
   text-align: left;
-  padding: 12px;
+  padding: 9px 10px;
   border-bottom: 1px solid #e5e7eb;
   vertical-align: top;
 }
@@ -310,18 +332,20 @@ tbody tr:hover {
 }
 
 .loading {
-  padding: 18px;
+  padding: 14px;
   color: #6b7280;
+  font-size: 0.9rem;
 }
 
 .error {
-  padding: 18px;
+  padding: 14px;
   color: #b91c1c;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 900px) {
   .hero {
-    padding: 14px 14px 8px;
+    padding: 10px 12px 6px;
   }
 
   .hero-top {
@@ -334,23 +358,29 @@ tbody tr:hover {
   }
 
   .hero-center h1 {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
+  }
+
+  .subtitle,
+  .lang-note,
+  .scroll-link {
+    font-size: 0.9rem;
   }
 
   .compact-scroll {
-    max-height: 100px;
+    max-height: 70px;
   }
 
   .chat-window {
-    min-height: 220px;
-    max-height: 250px;
+    min-height: 140px;
+    max-height: 160px;
   }
 
   .table-scroll {
-    max-height: 340px;
+    max-height: 300px;
   }
 
   .tables-section {
-    padding: 14px;
+    padding: 12px;
   }
 }
