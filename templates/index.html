@@ -1,1 +1,225 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR Data QA Agent</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-top">
+      <div class="hero-left">
+        <img src="/static/profile.jpg" alt="Profile picture" class="profile-pic" />
+      </div>
+
+      <div class="hero-center">
+        <h1>HR Data QA Agent</h1>
+        <p class="subtitle">
+          Chat with the 3 tables, employees, departments, and absences, and ask any question the HR team needs.
+        </p>
+        <a href="#tables-section" class="scroll-link">Click here to view the tables</a>
+      </div>
+
+      <div class="hero-right"></div>
+    </div>
+
+    <div class="hero-grid">
+      <section class="card examples-card">
+        <h2>Types of Questions You Can Ask</h2>
+        <div class="scroll-box">
+          <div class="qa-group">
+            <h3>1. Employee Lookup</h3>
+            <p>Find employees or employee lists.</p>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show all employees in Engineering.</li>
+              <li>List employees in HR.</li>
+              <li>Who works in the Sales department?</li>
+              <li>Show employees managed by Frank Neumann.</li>
+              <li>List employees in Engineering with their job titles.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>2. Employee Details</h3>
+            <p>Retrieve specific information about employees.</p>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show the email and salary of employees in Sales.</li>
+              <li>What is the hire date of Alice Müller?</li>
+              <li>Show first name and email of employees in HR.</li>
+              <li>List employee names and salaries in Engineering.</li>
+              <li>Show job title and hire date of Frank Neumann.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>3. Filtering With Conditions</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show employees with salary greater than 80000.</li>
+              <li>List employees hired before 2020.</li>
+              <li>Show employees in Engineering earning more than 70000.</li>
+              <li>List employees in HR hired after 2021.</li>
+              <li>Show employees with salary between 60000 and 90000.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>4. Department Questions</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show department names and budgets.</li>
+              <li>Which departments have budget greater than 200000?</li>
+              <li>What is the budget of the HR department?</li>
+              <li>List departments ordered by budget.</li>
+              <li>Which department has the highest budget?</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>5. Manager and Reporting Structure</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Who reports to Bob Schmidt?</li>
+              <li>Who reports to Frank Neumann?</li>
+              <li>Who is the manager of Greta Wolf?</li>
+              <li>Who is the manager of Hassan Ali?</li>
+              <li>Show employees managed by David Weber.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>6. Absence and Leave Tracking</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show all sick absences.</li>
+              <li>List paid vacation absences.</li>
+              <li>Show sick absences with more than 3 days.</li>
+              <li>Show absences for Alice Müller.</li>
+              <li>List absences ordered by start date.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>7. Aggregated Information</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>How many employees are in each department?</li>
+              <li>What is the average salary in Engineering?</li>
+              <li>What is the total salary in HR?</li>
+              <li>How many sick absences are there?</li>
+              <li>What is the maximum salary in each department?</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>8. Ranking and Top Results</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Top 3 highest paid employees.</li>
+              <li>Top 5 lowest paid employees.</li>
+              <li>Show the highest paid employee in HR.</li>
+              <li>Show the most recently hired employees.</li>
+              <li>Which department has the lowest budget?</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>9. Performance Review Search</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show employees with leadership in their performance review.</li>
+              <li>Show employees with communication skills in their review.</li>
+              <li>List employees with strong analytical skills.</li>
+              <li>Show employees with organizational skills in reviews.</li>
+              <li>Find employees praised for teamwork.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>10. Combined Conditions</h3>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Show employees in Engineering with salary above 70000 hired before 2021.</li>
+              <li>List employees in Sales earning more than 60000.</li>
+              <li>Show employees in HR with performance review containing communication.</li>
+              <li>Show sick absences for employees in Engineering.</li>
+              <li>List employees in departments with budget above 200000.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <h3>11. Semantic Search Over Performance Reviews</h3>
+            <p>Use vector search over unstructured performance review text to find employees by meaning, not only exact keywords.</p>
+            <p><strong>Example questions:</strong></p>
+            <ul>
+              <li>Which employees show leadership potential?</li>
+              <li>Who needs to improve communication?</li>
+              <li>Which employees are strong at mentoring others?</li>
+              <li>Who has strong strategic thinking?</li>
+              <li>Which employees are highly organized?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card chat-card">
+        <h2>Chat with the Agent</h2>
+        <p class="chat-desc">Type a question and press Enter or click Send.</p>
+
+        <div id="chat-window" class="chat-window">
+          <div class="message agent">
+            Hi. Ask me anything about employees, departments, absences, or performance reviews.
+          </div>
+        </div>
+
+        <div class="chat-input-row">
+          <input
+            id="question-input"
+            type="text"
+            placeholder="Ask a question..."
+            autocomplete="off"
+          />
+          <button id="send-btn">Send</button>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main id="tables-section" class="tables-section">
+    <div class="section-header">
+      <h2>Data Tables</h2>
+      <p>Browse the source CSV tables below.</p>
+    </div>
+
+    <section class="table-card">
+      <div class="table-header">
+        <h3>Employees</h3>
+        <a href="/download/employees" target="_blank">Download CSV</a>
+      </div>
+      <div id="employees-table" class="table-wrap"></div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-header">
+        <h3>Departments</h3>
+        <a href="/download/departments" target="_blank">Download CSV</a>
+      </div>
+      <div id="departments-table" class="table-wrap"></div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-header">
+        <h3>Absences</h3>
+        <a href="/download/absences" target="_blank">Download CSV</a>
+      </div>
+      <div id="absences-table" class="table-wrap"></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
