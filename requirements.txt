@@ -5,3 +5,4 @@ pandas
 numpy
 faiss-cpu
 pydantic
+jinja2
