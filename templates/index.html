@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HR Data QA Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
@@ -14,12 +17,16 @@
       </div>
 
       <div class="hero-center">
+        <span class="eyebrow">FastAPI • Azure OpenAI • FAISS • SQLite</span>
         <h1>HR Data QA Agent</h1>
         <p class="subtitle">
           Chat with the 3 tables, employees, departments, and absences, and ask any question the HR team needs.
         </p>
         <p class="lang-note">The agent understands English and German.</p>
-        <a href="#tables-section" class="scroll-link">Click here to view the tables</a>
+
+        <div class="hero-actions">
+          <a href="#tables-section" class="scroll-link">View the tables</a>
+        </div>
       </div>
 
       <div class="hero-right"></div>
@@ -27,7 +34,11 @@
 
     <div class="hero-stack">
       <section class="card examples-card compact-card">
-        <h2>Types of Questions You Can Ask</h2>
+        <div class="card-header-row">
+          <h2>Types of Questions You Can Ask</h2>
+          <span class="mini-badge">11 categories</span>
+        </div>
+
         <div class="scroll-box compact-scroll">
           <div class="qa-group">
             <h3>1. Employee Lookup</h3>
@@ -175,7 +186,11 @@
       </section>
 
       <section class="card chat-card">
-        <h2>Chat with the Agent</h2>
+        <div class="card-header-row">
+          <h2>Chat with the Agent</h2>
+          <span class="mini-badge chat-badge">Live demo</span>
+        </div>
+
         <p class="chat-desc">Type a question and press Enter or click Send.</p>
 
         <div id="chat-window" class="chat-window">
@@ -199,6 +214,7 @@
 
   <main id="tables-section" class="tables-section">
     <div class="section-header">
+      <span class="section-kicker">Source data</span>
       <h2>Data Tables</h2>
       <p>Browse the source CSV tables below, and choose which table you want to see.</p>
 
@@ -215,7 +231,10 @@
 
     <section id="employees-card" class="table-card">
       <div class="table-header">
-        <h3>Employees</h3>
+        <div>
+          <h3>Employees</h3>
+          <p class="table-subtitle">Main employee records, roles, salaries, and reviews.</p>
+        </div>
         <a href="/download/employees" target="_blank">Download CSV</a>
       </div>
       <div id="employees-table" class="table-wrap table-scroll"></div>
@@ -223,7 +242,10 @@
 
     <section id="departments-card" class="table-card">
       <div class="table-header">
-        <h3>Departments</h3>
+        <div>
+          <h3>Departments</h3>
+          <p class="table-subtitle">Department names and budgets.</p>
+        </div>
         <a href="/download/departments" target="_blank">Download CSV</a>
       </div>
       <div id="departments-table" class="table-wrap table-scroll"></div>
@@ -231,7 +253,10 @@
 
     <section id="absences-card" class="table-card">
       <div class="table-header">
-        <h3>Absences</h3>
+        <div>
+          <h3>Absences</h3>
+          <p class="table-subtitle">Leave, sickness, and absence tracking records.</p>
+        </div>
         <a href="/download/absences" target="_blank">Download CSV</a>
       </div>
       <div id="absences-table" class="table-wrap table-scroll"></div>
