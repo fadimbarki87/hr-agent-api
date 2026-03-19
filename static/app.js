@@ -1,7 +1,7 @@
-
 const chatWindow = document.getElementById("chat-window");
 const input = document.getElementById("question-input");
 const sendBtn = document.getElementById("send-btn");
+const tableSelect = document.getElementById("table-select");
 
 function addMessage(text, sender) {
   const div = document.createElement("div");
@@ -109,6 +109,18 @@ async function loadTable(tableName, containerId) {
   } catch (error) {
     container.innerHTML = `<div class="error">Failed to load ${tableName}.</div>`;
   }
+}
+
+if (tableSelect) {
+  tableSelect.addEventListener("change", (event) => {
+    const targetId = event.target.value;
+    if (!targetId) return;
+
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
 }
 
 loadTable("employees", "employees-table");
