@@ -1,0 +1,16 @@
+employee_id,first_name,last_name,email,hire_date,job_title,department_id,manager_id,salary,employment_status,performance_review
+1,Alice,Müller,alice@company.com,2020-03-01,Software Engineer,1,,70000,active,Strong problem-solving skills and shows leadership potential. Needs to improve communication.
+2,Bob,Schmidt,bob@company.com,2019-07-15,Senior Engineer,1,1.0,90000,active,Excellent technical expertise and consistently delivers high-quality work. Mentors junior staff.
+3,Clara,Fischer,clara@company.com,2021-01-10,HR Specialist,2,,60000,active,Very organized and good with people. Could take more initiative in complex situations.
+4,David,Weber,david@company.com,2018-11-20,Sales Manager,3,,80000,active,Strong leadership and negotiation skills. Drives team performance effectively.
+5,Eva,Becker,eva@company.com,2022-05-01,Junior Engineer,1,2.0,55000,active,Good technical foundation but needs guidance. Improving steadily.
+6,Frank,Neumann,frank@company.com,2017-09-12,Lead Engineer,1,,105000,active,Excellent leadership and architecture skills. Key contributor to major projects.
+7,Greta,Wolf,greta@company.com,2021-06-18,Recruiter,2,3.0,58000,active,Strong communication skills and good candidate evaluation ability.
+8,Hassan,Ali,hassan@company.com,2019-02-11,Sales Executive,3,4.0,65000,active,Highly motivated and achieves sales targets consistently.
+9,Isabel,Klein,isabel@company.com,2020-08-30,Product Manager,1,6.0,95000,active,Strong strategic thinking and cross-team coordination.
+10,Jonas,Hartmann,jonas@company.com,2023-01-05,Intern,1,2.0,30000,active,Learning quickly and shows strong curiosity.
+11,Karim,Yilmaz,karim@company.com,2018-04-14,HR Manager,2,,85000,active,Experienced leader with strong organizational skills.
+12,Lena,Schulz,lena@company.com,2022-09-09,Sales Associate,3,4.0,50000,active,Good customer interaction but needs confidence in closing deals.
+13,Marta,Nowak,marta@company.com,2021-11-22,Data Analyst,1,6.0,72000,active,Strong analytical skills and attention to detail.
+14,Nico,Brandt,nico@company.com,2019-12-01,DevOps Engineer,1,6.0,88000,active,Reliable and ensures system stability. Good problem-solving under pressure.
+15,Olga,Ivanova,olga@company.com,2020-06-17,HR Coordinator,2,11.0,57000,active,Efficient and detail-oriented. Supports HR operations effectively.

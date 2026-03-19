@@ -1,0 +1,5 @@
+{
+  "EMPLOYEES_FILE": "employees.csv",
+  "DEPARTMENTS_FILE": "departments.csv",
+  "ABSENCES_FILE": "absences.csv"
+}
