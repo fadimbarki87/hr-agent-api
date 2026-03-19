@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,16 +18,17 @@
         <p class="subtitle">
           Chat with the 3 tables, employees, departments, and absences, and ask any question the HR team needs.
         </p>
+        <p class="lang-note">The agent understands English and German.</p>
         <a href="#tables-section" class="scroll-link">Click here to view the tables</a>
       </div>
 
       <div class="hero-right"></div>
     </div>
 
-    <div class="hero-grid">
-      <section class="card examples-card">
+    <div class="hero-stack">
+      <section class="card examples-card compact-card">
         <h2>Types of Questions You Can Ask</h2>
-        <div class="scroll-box">
+        <div class="scroll-box compact-scroll">
           <div class="qa-group">
             <h3>1. Employee Lookup</h3>
             <p>Find employees or employee lists.</p>
@@ -57,6 +57,7 @@
 
           <div class="qa-group">
             <h3>3. Filtering With Conditions</h3>
+            <p>Find employees matching specific criteria.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Show employees with salary greater than 80000.</li>
@@ -69,6 +70,7 @@
 
           <div class="qa-group">
             <h3>4. Department Questions</h3>
+            <p>Ask questions about departments and budgets.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Show department names and budgets.</li>
@@ -81,6 +83,7 @@
 
           <div class="qa-group">
             <h3>5. Manager and Reporting Structure</h3>
+            <p>Understand who manages whom.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Who reports to Bob Schmidt?</li>
@@ -93,6 +96,7 @@
 
           <div class="qa-group">
             <h3>6. Absence and Leave Tracking</h3>
+            <p>Analyze employee absences.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Show all sick absences.</li>
@@ -105,6 +109,7 @@
 
           <div class="qa-group">
             <h3>7. Aggregated Information</h3>
+            <p>Ask for totals, averages, and counts.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>How many employees are in each department?</li>
@@ -117,6 +122,7 @@
 
           <div class="qa-group">
             <h3>8. Ranking and Top Results</h3>
+            <p>Find highest or lowest values.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Top 3 highest paid employees.</li>
@@ -129,6 +135,7 @@
 
           <div class="qa-group">
             <h3>9. Performance Review Search</h3>
+            <p>Search inside employee performance reviews.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Show employees with leadership in their performance review.</li>
@@ -141,6 +148,7 @@
 
           <div class="qa-group">
             <h3>10. Combined Conditions</h3>
+            <p>More complex business questions combining multiple conditions.</p>
             <p><strong>Example questions:</strong></p>
             <ul>
               <li>Show employees in Engineering with salary above 70000 hired before 2021.</li>
@@ -192,31 +200,41 @@
   <main id="tables-section" class="tables-section">
     <div class="section-header">
       <h2>Data Tables</h2>
-      <p>Browse the source CSV tables below.</p>
+      <p>Browse the source CSV tables below, and choose which table you want to see.</p>
+
+      <div class="table-jump">
+        <label for="table-select">Choose a table:</label>
+        <select id="table-select">
+          <option value="">Select a table</option>
+          <option value="employees-card">Employees</option>
+          <option value="departments-card">Departments</option>
+          <option value="absences-card">Absences</option>
+        </select>
+      </div>
     </div>
 
-    <section class="table-card">
+    <section id="employees-card" class="table-card">
       <div class="table-header">
         <h3>Employees</h3>
         <a href="/download/employees" target="_blank">Download CSV</a>
       </div>
-      <div id="employees-table" class="table-wrap"></div>
+      <div id="employees-table" class="table-wrap table-scroll"></div>
     </section>
 
-    <section class="table-card">
+    <section id="departments-card" class="table-card">
       <div class="table-header">
         <h3>Departments</h3>
         <a href="/download/departments" target="_blank">Download CSV</a>
       </div>
-      <div id="departments-table" class="table-wrap"></div>
+      <div id="departments-table" class="table-wrap table-scroll"></div>
     </section>
 
-    <section class="table-card">
+    <section id="absences-card" class="table-card">
       <div class="table-header">
         <h3>Absences</h3>
         <a href="/download/absences" target="_blank">Download CSV</a>
       </div>
-      <div id="absences-table" class="table-wrap"></div>
+      <div id="absences-table" class="table-wrap table-scroll"></div>
     </section>
   </main>
 
