@@ -205,26 +205,6 @@ Welche Mitarbeiter in Engineering wurden nach dem 2024-02-01 eingestellt?
 Welche Mitarbeiter zeigen Führungspotenzial?
 ```
 
----
-
-# Running the Project
-
-Install dependencies:
-
-```
-pip install -r requirements.txt
-```
-
-Run the application:
-
-```
-python app.py
-```
-
-Open the local address shown in the terminal to access the web interface.
-
----
-
 # Azure OpenAI Configuration
 
 The project requires Azure OpenAI for two tasks:
