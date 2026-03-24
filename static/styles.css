@@ -148,16 +148,16 @@ body {
 }
 
 .compact-card {
-  padding-bottom: 10px;
+  padding-bottom: 14px;
 }
 
 .scroll-box {
-  overflow-y: auto;
-  padding-right: 4px;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .compact-scroll {
-  max-height: 58px;
+  max-height: none;
 }
 
 .qa-group {
@@ -170,22 +170,23 @@ body {
 }
 
 .qa-group p {
-  margin: 2px 0;
-  line-height: 1.2;
-  font-size: 0.8rem;
+  margin: 4px 0;
+  line-height: 1.45;
+  font-size: 0.84rem;
   color: var(--muted);
 }
 
 .qa-group ul {
-  margin: 4px 0 0 15px;
+  margin: 6px 0 0 20px;
   padding: 0;
 }
 
 .qa-group li {
-  margin-bottom: 2px;
-  line-height: 1.2;
-  font-size: 0.8rem;
+  margin-bottom: 6px;
+  line-height: 1.5;
+  font-size: 0.84rem;
   color: var(--text);
+  user-select: text;
 }
 
 .chat-desc {
@@ -445,7 +446,7 @@ tbody tr:hover {
   }
 
   .compact-scroll {
-    max-height: 52px;
+    max-height: none;
   }
 
   .chat-window {
