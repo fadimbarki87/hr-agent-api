@@ -1,13 +1,13 @@
 # HR Data QA Agent
 
-A bilingual HR question-answering app that combines deterministic SQL querying with semantic search over employee performance reviews.
+A bilingual HR question-answering system that combines deterministic SQL querying with semantic search over employee performance reviews.
 
-The project answers structured HR questions, such as reporting lines, salaries, hire dates, department counts, and absences, by converting natural language into SQLite queries. For review-based questions like leadership potential or communication issues, it uses FAISS and Azure OpenAI embeddings to retrieve relevant employees semantically.
+The system answers structured HR questions, such as reporting lines, salaries, hire dates, department counts, and absences, by converting natural language into SQLite queries. For review-based queries like leadership potential or communication issues, it uses FAISS with Azure OpenAI embeddings to retrieve relevant employees.
 
 It supports English and German input and routes questions through three modes:
 - SQL only
 - semantic review search
-- hybrid semantic + SQL filtering
+- hybrid (semantic + SQL filtering)
 
 ## Tech Stack
 
@@ -20,11 +20,11 @@ It supports English and German input and routes questions through three modes:
 
 ## Highlights
 
-- Natural-language-to-SQL with read-only SQL guardrails
-- FAISS-based semantic retrieval over `performance_review`
-- Hybrid routing for mixed structured and semantic HR questions
-- English/German normalization layer
-- Deterministic tabular output with optional answer rewriting
+- Built a natural-language-to-SQL pipeline with strict read-only SQL validation
+- Implemented semantic search over unstructured performance reviews using FAISS
+- Designed a hybrid retrieval system combining vector search with structured SQL filtering
+- Developed a bilingual normalization layer for English and German queries
+- Ensured deterministic outputs to avoid hallucinations in factual queries
 
 ## Example Questions
 
@@ -39,12 +39,10 @@ It supports English and German input and routes questions through three modes:
 pip install -r requirements.txt
 python app.py
 
-Set these environment variables before running:
+Set environment variables:
 
 AZURE_OPENAI_ENDPOINT
 AZURE_OPENAI_DEPLOYMENT
 AZURE_OPENAI_API_VERSION
 AZURE_OPENAI_API_KEY
 AZURE_OPENAI_EMBEDDING_DEPLOYMENT
-Notes
-
