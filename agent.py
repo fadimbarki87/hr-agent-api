@@ -24,6 +24,53 @@ DEBUG = False
 UNSUPPORTED_MSG = "Unsupported or vague question."
 EMPTY_MSG = "Empty result."
 
+LANGUAGE_CONFIG = {
+    "en": {
+        "label": "English",
+        "unsupported": "Unsupported or vague question.",
+        "empty": "Empty result.",
+        "terms": [
+            "show", "list", "who", "what", "which", "how", "employees", "employee",
+            "department", "departments", "salary", "manager", "reports", "hire", "date",
+            "absences", "performance", "review", "top", "budget"
+        ],
+    },
+    "de": {
+        "label": "German",
+        "unsupported": "Nicht unterstützte oder zu vage Frage.",
+        "empty": "Leeres Ergebnis.",
+        "terms": [
+            "zeige", "liste", "wer", "welche", "wie", "mitarbeiter", "abteilung",
+            "abteilungen", "gehalt", "vorgesetzter", "berichtet", "eingestellt",
+            "krank", "abwesenheiten", "bewertung", "urlaub"
+        ],
+    },
+    "es": {
+        "label": "Spanish",
+        "unsupported": "Pregunta no compatible o demasiado vaga.",
+        "empty": "Resultado vacío.",
+        "terms": [
+            "muestra", "lista", "quien", "quién", "cual", "cuál", "como", "cómo",
+            "empleados", "departamento", "salario", "ausencias", "rendimiento", "revision", "revisión"
+        ],
+    },
+    "fr": {
+        "label": "French",
+        "unsupported": "Question non prise en charge ou trop vague.",
+        "empty": "Résultat vide.",
+        "terms": [
+            "montre", "liste", "qui", "quel", "quelle", "comment", "employes", "employés",
+            "departement", "département", "salaire", "absences", "evaluation", "évaluation"
+        ],
+    },
+    "ar": {
+        "label": "Arabic",
+        "unsupported": "السؤال غير مدعوم أو غامض جدًا.",
+        "empty": "لا توجد نتائج.",
+        "terms": [],
+    },
+}
+
 # -----------------------------------------------------------------------------
 # 1) Azure OpenAI config
 # -----------------------------------------------------------------------------
@@ -475,6 +522,41 @@ def normalize_question(question: str) -> str:
     q_lower = re.sub(r"\s+", " ", q_lower).strip()
 
     return q_lower
+
+
+def detect_question_language(question: str) -> str:
+    q = (question or "").strip().lower()
+
+    if re.search(r"[\u0600-\u06FF]", q):
+        return "ar"
+
+    if any(ch in q for ch in ["ä", "ö", "ü", "ß"]):
+        return "de"
+
+    scores = {code: 0 for code in LANGUAGE_CONFIG}
+
+    for code, config in LANGUAGE_CONFIG.items():
+        for term in config["terms"]:
+            if re.search(rf"\b{re.escape(term)}\b", q):
+                scores[code] += 1
+
+    best_code = max(scores, key=scores.get)
+    if scores[best_code] > 0:
+        return best_code
+
+    return "en"
+
+
+def localize_status_message(message: str, language_code: str) -> str:
+    config = LANGUAGE_CONFIG.get(language_code, LANGUAGE_CONFIG["en"])
+
+    if message == UNSUPPORTED_MSG:
+        return config["unsupported"]
+
+    if message == EMPTY_MSG:
+        return config["empty"]
+
+    return message
 
 # -----------------------------------------------------------------------------
 # 5b) FAISS routing helpers
@@ -934,17 +1016,25 @@ def get_semantic_candidate_ids(matches: list[dict], max_ids: int = 8) -> list[in
 #    Must not add facts. Same language as the question.
 # -----------------------------------------------------------------------------
 def formulate_answer(question: str, deterministic_result: str) -> str:
+    target_language_code = detect_question_language(question)
+    target_language_label = LANGUAGE_CONFIG.get(
+        target_language_code,
+        LANGUAGE_CONFIG["en"]
+    )["label"]
+
     if deterministic_result in (UNSUPPORTED_MSG, EMPTY_MSG):
-        return deterministic_result
+        return localize_status_message(deterministic_result, target_language_code)
 
     url = f"{AZURE_OPENAI_ENDPOINT}/openai/deployments/{AZURE_OPENAI_DEPLOYMENT}/chat/completions?api-version={AZURE_OPENAI_API_VERSION}"
     headers = {"Content-Type": "application/json", "api-key": AZURE_OPENAI_API_KEY}
 
-    system_prompt = """
+    system_prompt = f"""
 You rewrite deterministic SQL results into a short natural-language answer.
 
 Rules:
-- Use the same language as the user's question.
+- Answer ONLY in {target_language_label}.
+- Use the same language as the user's question and do not translate it into another language.
+- Never switch to a different language, even if another language seems more natural.
 - Use ONLY the provided SQL result.
 - Do NOT add facts, interpretations, or assumptions not present in the rows.
 - If the result is tabular, summarize briefly but accurately.
@@ -959,7 +1049,10 @@ Rules:
             {"role": "system", "content": system_prompt},
             {
                 "role": "user",
-                "content": f"Question:\n{question}\n\nDeterministic SQL result:\n{deterministic_result}"
+                "content": (
+                    f"Detected answer language: {target_language_label} ({target_language_code})\n\n"
+                    f"Question:\n{question}\n\nDeterministic SQL result:\n{deterministic_result}"
+                )
             }
         ],
         "temperature": 0.0,
@@ -985,6 +1078,7 @@ Rules:
 # -----------------------------------------------------------------------------
 def hr_agent_with_trace(question: str, use_ai_formulation: bool = False) -> dict:
     normalized_question = normalize_question(question)
+    question_language = detect_question_language(question)
 
     if DEBUG:
         print("normalized question:", normalized_question)
@@ -1071,7 +1165,7 @@ def hr_agent_with_trace(question: str, use_ai_formulation: bool = False) -> dict
                 evidence["reason"] = exec_trace["reason"]
 
     if not use_ai_formulation:
-        answer = result
+        answer = localize_status_message(result, question_language)
     else:
         answer = formulate_answer(question, result)
 
