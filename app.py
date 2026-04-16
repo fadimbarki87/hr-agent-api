@@ -41,13 +41,14 @@ def health():
 
 @app.post("/ask")
 def ask(req: AskRequest):
-    answer = agent.hr_agent(
+    traced = agent.hr_agent_with_trace(
         req.question,
         use_ai_formulation=req.use_ai_formulation
     )
     return {
         "question": req.question,
-        "answer": answer
+        "answer": traced["answer"],
+        "evidence": traced["evidence"]
     }
 
 

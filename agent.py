@@ -747,49 +747,91 @@ Use the normalized question as the main signal. Use the original question only i
 # -----------------------------------------------------------------------------
 # 8) Deterministic SQL execution and formatting
 # -----------------------------------------------------------------------------
+def cell_to_text(v):
+    if v is None:
+        return "NULL"
+    return str(v)
+
+
+def rows_to_table_payload(columns, rows) -> dict:
+    payload_rows = []
+
+    for row in rows:
+        payload_rows.append({
+            col: cell_to_text(v)
+            for col, v in zip(columns, row)
+        })
+
+    return {
+        "columns": list(columns),
+        "rows": payload_rows,
+        "row_count": len(payload_rows)
+    }
+
+
 def format_rows_deterministically(cursor, rows) -> str:
     columns = [desc[0] for desc in cursor.description] if cursor.description else []
-
-    def cell_to_str(v):
-        if v is None:
-            return "NULL"
-        return str(v)
 
     header = " | ".join(columns)
     lines = [header]
     for row in rows:
-        lines.append(" | ".join(cell_to_str(v) for v in row))
+        lines.append(" | ".join(cell_to_text(v) for v in row))
     return "\n".join(lines)
 
 
-def execute_intent(conn, intent: dict):
-    if not intent.get("supported", False):
-        return UNSUPPORTED_MSG
+def execute_intent_with_trace(conn, intent: dict):
+    trace = {
+        "supported": bool(intent.get("supported", False)),
+        "sql": str(intent.get("sql", "") or "").strip(),
+        "status": "unsupported",
+        "result": None,
+        "reason": ""
+    }
 
-    sql = (intent.get("sql") or "").strip()
+    if not trace["supported"]:
+        trace["reason"] = (
+            "The assistant could not safely map this question to the available HR tables and fields."
+        )
+        return UNSUPPORTED_MSG, trace
+
+    sql = trace["sql"]
     if not sql:
-        return UNSUPPORTED_MSG
+        trace["reason"] = "The question was understood as supported, but no executable SQL was produced."
+        return UNSUPPORTED_MSG, trace
 
     if not is_safe_select_sql(sql):
         if DEBUG:
             print("unsafe sql rejected:", sql)
-        return UNSUPPORTED_MSG
+        trace["reason"] = "The generated SQL did not pass the read-only safety checks."
+        return UNSUPPORTED_MSG, trace
 
     try:
         cursor = conn.cursor()
         cursor.execute(sql)
         rows = cursor.fetchall()
+        columns = [desc[0] for desc in cursor.description] if cursor.description else []
+        trace["result"] = rows_to_table_payload(columns, rows)
 
         if not rows:
-            return EMPTY_MSG
+            trace["status"] = "empty"
+            trace["reason"] = "The question is supported, but no rows matched the query."
+            return EMPTY_MSG, trace
 
-        return format_rows_deterministically(cursor, rows)
+        trace["status"] = "supported"
+        return format_rows_deterministically(cursor, rows), trace
 
     except Exception as e:
         if DEBUG:
             print("sql error:", repr(e))
             print("sql text:", sql)
-        return UNSUPPORTED_MSG
+
+        trace["reason"] = "The assistant could not execute the generated SQL successfully."
+        return UNSUPPORTED_MSG, trace
+
+
+def execute_intent(conn, intent: dict):
+    result, _trace = execute_intent_with_trace(conn, intent)
+    return result
 
 # -----------------------------------------------------------------------------
 # 8b) FAISS semantic review search helpers
@@ -846,6 +888,36 @@ def format_semantic_matches_deterministically(matches: list[dict]) -> str:
         lines.append(" | ".join(row))
 
     return "\n".join(lines)
+
+
+def semantic_matches_to_table_payload(matches: list[dict]) -> dict:
+    columns = [
+        "employee_id",
+        "first_name",
+        "last_name",
+        "job_title",
+        "department_name",
+        "performance_review",
+        "score",
+    ]
+
+    rows = []
+    for m in matches:
+        rows.append({
+            "employee_id": cell_to_text(m.get("employee_id", "")),
+            "first_name": cell_to_text(m.get("first_name", "")),
+            "last_name": cell_to_text(m.get("last_name", "")),
+            "job_title": cell_to_text(m.get("job_title", "")),
+            "department_name": cell_to_text(m.get("department_name", "")),
+            "performance_review": cell_to_text(m.get("performance_review", "")),
+            "score": f"{float(m.get('score', 0.0)):.4f}",
+        })
+
+    return {
+        "columns": columns,
+        "rows": rows,
+        "row_count": len(rows)
+    }
 
 
 def get_semantic_candidate_ids(matches: list[dict], max_ids: int = 8) -> list[int]:
@@ -911,36 +983,107 @@ Rules:
 # -----------------------------------------------------------------------------
 # 10) Full HR agent
 # -----------------------------------------------------------------------------
-def hr_agent(question: str, use_ai_formulation: bool = False) -> str:
+def hr_agent_with_trace(question: str, use_ai_formulation: bool = False) -> dict:
     normalized_question = normalize_question(question)
 
     if DEBUG:
         print("normalized question:", normalized_question)
 
-    route = detect_question_route(normalized_question)
+    route_requested = detect_question_route(normalized_question)
+    route_used = route_requested
+    evidence = {
+        "status": "unsupported",
+        "supported": False,
+        "normalized_question": normalized_question,
+        "route_requested": route_requested,
+        "route_used": route_requested,
+        "sql": "",
+        "semantic_candidate_ids": [],
+        "semantic_matches": None,
+        "result": None,
+        "reason": "",
+        "notes": []
+    }
 
-    if route == "sql_only" or not FAISS_READY:
+    if route_requested == "sql_only" or not FAISS_READY:
+        if route_requested != "sql_only" and not FAISS_READY:
+            route_used = "sql_only"
+            evidence["notes"].append(
+                "Semantic review search was unavailable, so the assistant used the SQL-only path."
+            )
+
+        evidence["route_used"] = route_used
         intent = parse_question_to_intent(question, normalized_question)
-        result = execute_intent(conn, intent)
+        result, exec_trace = execute_intent_with_trace(conn, intent)
 
-    elif route == "review_semantic":
+        evidence["supported"] = exec_trace["supported"]
+        evidence["status"] = exec_trace["status"]
+        evidence["sql"] = exec_trace["sql"]
+        evidence["result"] = exec_trace["result"]
+        evidence["reason"] = exec_trace["reason"]
+
+    elif route_requested == "review_semantic":
+        evidence["route_used"] = "review_semantic"
         matches = semantic_search_reviews(question, top_k=5, score_threshold=0.08)
+        evidence["supported"] = True
+        evidence["semantic_matches"] = semantic_matches_to_table_payload(matches)
+
+        if matches:
+            evidence["status"] = "supported"
+        else:
+            evidence["status"] = "empty"
+            evidence["reason"] = "No relevant performance review matches were found for this question."
+
         result = format_semantic_matches_deterministically(matches)
 
     else:  # review_semantic_plus_sql
+        evidence["route_used"] = "review_semantic_plus_sql"
         matches = semantic_search_reviews(question, top_k=8, score_threshold=0.06)
+        evidence["semantic_matches"] = semantic_matches_to_table_payload(matches)
         candidate_ids = get_semantic_candidate_ids(matches, max_ids=8)
+        evidence["semantic_candidate_ids"] = candidate_ids
 
         if not candidate_ids:
+            evidence["supported"] = True
+            evidence["status"] = "empty"
+            evidence["reason"] = (
+                "No relevant performance review matches were found before applying the structured filters."
+            )
             result = EMPTY_MSG
         else:
             intent = parse_question_to_intent(question, normalized_question, semantic_candidate_ids=candidate_ids)
-            result = execute_intent(conn, intent)
+            result, exec_trace = execute_intent_with_trace(conn, intent)
+
+            evidence["supported"] = exec_trace["supported"]
+            evidence["status"] = exec_trace["status"]
+            evidence["sql"] = exec_trace["sql"]
+            evidence["result"] = exec_trace["result"]
+
+            if exec_trace["status"] == "empty":
+                evidence["reason"] = (
+                    "The question is supported, but no rows matched after applying the review candidates and structured filters."
+                )
+            elif exec_trace["status"] == "unsupported":
+                evidence["reason"] = (
+                    "The assistant found relevant review candidates, but could not safely translate the full request into a supported SQL query."
+                )
+            else:
+                evidence["reason"] = exec_trace["reason"]
 
     if not use_ai_formulation:
-        return result
+        answer = result
+    else:
+        answer = formulate_answer(question, result)
 
-    return formulate_answer(question, result)
+    return {
+        "answer": answer,
+        "evidence": evidence
+    }
+
+
+def hr_agent(question: str, use_ai_formulation: bool = False) -> str:
+    traced = hr_agent_with_trace(question, use_ai_formulation=use_ai_formulation)
+    return traced["answer"]
 
 # -----------------------------------------------------------------------------
 # 11) Example usage
