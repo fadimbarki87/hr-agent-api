@@ -284,6 +284,20 @@ select {
   color: var(--text);
 }
 
+.example-question {
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.example-question:hover,
+.example-question:focus {
+  background: rgba(15, 118, 110, 0.08);
+  color: var(--accent-deep);
+  outline: none;
+  transform: translateX(2px);
+}
+
 .chat-desc {
   margin: 0 0 14px;
   color: var(--muted);

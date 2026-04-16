@@ -2,6 +2,8 @@ const chatWindow = document.getElementById("chat-window");
 const input = document.getElementById("question-input");
 const sendBtn = document.getElementById("send-btn");
 const tableSelect = document.getElementById("table-select");
+const examplesCard = document.querySelector(".examples-card");
+const chatCard = document.querySelector(".chat-card");
 
 function addMessage(text, sender) {
   const div = document.createElement("div");
@@ -55,6 +57,56 @@ input.addEventListener("keydown", (event) => {
     sendQuestion();
   }
 });
+
+function focusChatInput() {
+  if (!input) return;
+
+  input.focus({ preventScroll: true });
+  const inputLength = input.value.length;
+  input.setSelectionRange(inputLength, inputLength);
+}
+
+function fillQuestionFromExample(questionText) {
+  if (!input) return;
+
+  input.value = questionText.trim();
+
+  if (chatCard) {
+    chatCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  window.setTimeout(focusChatInput, 220);
+}
+
+function prepareExampleQuestions() {
+  if (!examplesCard) return;
+
+  const exampleItems = examplesCard.querySelectorAll(".qa-group li");
+
+  exampleItems.forEach((item) => {
+    item.classList.add("example-question");
+    item.tabIndex = 0;
+    item.setAttribute("role", "button");
+    item.setAttribute("aria-label", `Use example question: ${item.textContent.trim()}`);
+  });
+
+  examplesCard.addEventListener("click", (event) => {
+    const questionItem = event.target.closest(".example-question");
+    if (!questionItem || !examplesCard.contains(questionItem)) return;
+
+    fillQuestionFromExample(questionItem.textContent);
+  });
+
+  examplesCard.addEventListener("keydown", (event) => {
+    const questionItem = event.target.closest(".example-question");
+    if (!questionItem || !examplesCard.contains(questionItem)) return;
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      fillQuestionFromExample(questionItem.textContent);
+    }
+  });
+}
 
 function renderTable(containerId, columns, rows) {
   const container = document.getElementById(containerId);
@@ -123,6 +175,7 @@ if (tableSelect) {
   });
 }
 
+prepareExampleQuestions();
 loadTable("employees", "employees-table");
 loadTable("departments", "departments-table");
 loadTable("absences", "absences-table");
