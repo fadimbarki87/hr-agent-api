@@ -24,6 +24,12 @@
   --hero-card-height: clamp(320px, calc(100vh - 320px), 460px);
 }
 
+@media (min-width: 1181px) and (min-height: 860px) {
+  :root {
+    --hero-card-height: clamp(340px, calc(100vh - 300px), 500px);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
