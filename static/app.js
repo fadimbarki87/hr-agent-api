@@ -7,6 +7,7 @@ const chatCard = document.querySelector(".chat-card");
 
 function formatRouteLabel(routeName) {
   const routeLabels = {
+    none: "No data route executed",
     sql_only: "SQL only",
     review_semantic: "Semantic review search",
     review_semantic_plus_sql: "Semantic review search + SQL"
@@ -19,10 +20,33 @@ function formatStatusLabel(status) {
   const statusLabels = {
     supported: "Answer returned",
     empty: "No matching rows",
-    unsupported: "Unsupported or vague"
+    unsupported: "Cannot answer as asked"
   };
 
   return statusLabels[status] || status || "Unknown";
+}
+
+function formatUnsupportedCategory(category) {
+  const labels = {
+    vague: "Needs clarification",
+    out_of_scope: "Outside HR data scope",
+    unavailable_data: "Required data unavailable",
+    unsupported_operation: "Operation not supported",
+    invalid_input: "Invalid input",
+    classification_unavailable: "Classification unavailable"
+  };
+
+  return labels[category] || category || "Unknown";
+}
+
+function formatClassificationSource(source) {
+  const labels = {
+    audited_azure_plan: "Azure plan with independent audit",
+    local_input_validation: "Local input validation",
+    planner_unavailable: "Planner unavailable"
+  };
+
+  return labels[source] || source || "Unknown";
 }
 
 function createEvidenceItem(label, value, options = {}) {
@@ -174,7 +198,8 @@ function createEvidencePanel(evidence) {
   summary.append(
     createEvidenceItem("Outcome", formatStatusLabel(evidence.status), { badge: evidence.status || "unsupported" }),
     createEvidenceItem("Route used", formatRouteLabel(evidence.route_used)),
-    createEvidenceItem("Normalized question", evidence.normalized_question || "")
+    createEvidenceItem("Normalized question", evidence.normalized_question || ""),
+    createEvidenceItem("Planning source", evidence.route_source || "Unknown")
   );
 
   if (evidence.route_requested && evidence.route_requested !== evidence.route_used) {
@@ -185,13 +210,55 @@ function createEvidencePanel(evidence) {
 
   panel.appendChild(summary);
 
+  if (evidence.unsupported_category && evidence.unsupported_category !== "none") {
+    summary.append(
+      createEvidenceItem(
+        "Classification",
+        formatUnsupportedCategory(evidence.unsupported_category)
+      ),
+      createEvidenceItem(
+        "Classification method",
+        formatClassificationSource(evidence.classification_source)
+      )
+    );
+  }
+
   if (evidence.reason) {
     panel.appendChild(createEvidenceItem("Explanation", evidence.reason));
+  }
+
+  if (evidence.semantic_query) {
+    panel.appendChild(
+      createEvidenceItem("Semantic evidence criterion", evidence.semantic_query)
+    );
+  }
+
+  if (evidence.semantic_scope && evidence.semantic_scope !== "none") {
+    panel.appendChild(
+      createEvidenceItem("Semantic scope", evidence.semantic_scope)
+    );
+  }
+
+  const availableDataSection = createEvidenceNotesSection(
+    "Available data considered",
+    evidence.available_data
+  );
+  if (availableDataSection) {
+    panel.appendChild(availableDataSection);
   }
 
   const sqlSection = createEvidenceCodeSection("SQL query", evidence.sql);
   if (sqlSection) {
     panel.appendChild(sqlSection);
+  }
+
+  if (Array.isArray(evidence.sql_parameters) && evidence.sql_parameters.length) {
+    panel.appendChild(
+      createEvidenceItem(
+        "SQL parameters",
+        JSON.stringify(evidence.sql_parameters)
+      )
+    );
   }
 
   if (Array.isArray(evidence.semantic_candidate_ids) && evidence.semantic_candidate_ids.length) {

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#eef1fb" />
   <title>HR Data QA Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,179 +14,167 @@
   <header class="hero">
     <div class="hero-top">
       <div class="hero-left">
-        <img src="/static/profile.jpg" alt="Profile picture" class="profile-pic" />
+        <div class="brand-logo" role="img" aria-label="HR Data QA Agent animated logo">
+          <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="logo-base-gradient" x1="8" y1="5" x2="72" y2="76" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#11172a" />
+                <stop offset="0.52" stop-color="#30246f" />
+                <stop offset="1" stop-color="#126d78" />
+              </linearGradient>
+              <linearGradient id="logo-line-gradient" x1="18" y1="16" x2="64" y2="63" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#b9f4ff" />
+                <stop offset="0.45" stop-color="#a5b4fc" />
+                <stop offset="1" stop-color="#f0abfc" />
+              </linearGradient>
+              <linearGradient id="logo-sheen-gradient" x1="0" y1="0" x2="1" y2="0">
+                <stop stop-color="#ffffff" stop-opacity="0" />
+                <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.34" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+              </linearGradient>
+              <radialGradient id="logo-core-gradient">
+                <stop stop-color="#ffffff" />
+                <stop offset="0.45" stop-color="#c4f7ff" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </radialGradient>
+              <clipPath id="logo-clip">
+                <rect x="2" y="2" width="76" height="76" rx="23" />
+              </clipPath>
+              <filter id="logo-glow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="2.4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <rect class="logo-base" x="2" y="2" width="76" height="76" rx="23" fill="url(#logo-base-gradient)" />
+            <path class="logo-ambient" d="M9 53C20 30 40 20 70 19" />
+            <circle class="logo-orbit" cx="40" cy="40" r="27" />
+            <path class="logo-monogram" d="M25 25V55M55 25V55M25 40H55" />
+            <path class="logo-network" d="M25 25L40 40L55 25M25 55L40 40L55 55" />
+            <g class="logo-nodes" filter="url(#logo-glow)">
+              <circle class="logo-node node-one" cx="25" cy="25" r="3.1" />
+              <circle class="logo-node node-two" cx="55" cy="25" r="3.1" />
+              <circle class="logo-node node-three" cx="25" cy="55" r="3.1" />
+              <circle class="logo-node node-four" cx="55" cy="55" r="3.1" />
+              <circle class="logo-core" cx="40" cy="40" r="4.5" fill="url(#logo-core-gradient)" />
+            </g>
+            <path class="logo-spark" d="M61 14L62.6 18.1L67 19.7L62.6 21.3L61 25.4L59.4 21.3L55 19.7L59.4 18.1Z" />
+            <g clip-path="url(#logo-clip)">
+              <rect class="logo-sheen" x="-35" y="-6" width="18" height="92" fill="url(#logo-sheen-gradient)" transform="rotate(18 0 0)" />
+            </g>
+          </svg>
+        </div>
       </div>
 
       <div class="hero-center">
-        <h1>HR Data QA Agent</h1>
+        <p class="hero-eyebrow"><span></span>People intelligence, grounded in data</p>
+        <h1>HR Data <span class="title-accent">QA Agent</span></h1>
         <p class="subtitle">
           Chat with the 3 tables, employees, departments, and absences, and ask any question the HR team needs.
         </p>
-        <p class="lang-note">The agent understands English and German.</p>
+        <p class="lang-note">The agent understands English, German, French, Spanish, and Arabic.</p>
 
         <div class="hero-actions">
           <a href="#tables-section" class="scroll-link">View the tables</a>
         </div>
       </div>
 
-      <div class="hero-right"></div>
+      <div class="hero-right">
+        <div class="profile-frame">
+          <img src="/static/profile.jpg" alt="Profile picture" class="profile-pic" />
+          <span class="profile-status" aria-hidden="true"></span>
+        </div>
+      </div>
     </div>
 
     <div class="hero-stack">
       <section class="card examples-card compact-card">
         <div class="card-header-row">
-          <h2>Example questions, scroll to explore</h2>
+          <div>
+            <h2>Try a question</h2>
+            <p class="examples-intro">Select an example to place it in the chat.</p>
+          </div>
+          <span class="example-count">22 curated examples</span>
         </div>
 
         <div class="scroll-box compact-scroll">
           <div class="qa-group">
-            <h3>1. Employee Lookup</h3>
-            <p>Find employees or employee lists.</p>
-            <p><strong>Example questions:</strong></p>
+            <h3>Structured HR data</h3>
+            <p>Filters, aggregation, ordering, and exact database values.</p>
             <ul>
-              <li>Show all employees in Engineering.</li>
-              <li>List employees in HR.</li>
-              <li>Who works in the Sales department?</li>
-              <li>Show employees managed by Frank Neumann.</li>
-              <li>List employees in Engineering with their job titles.</li>
+              <li>Show active Engineering employees earning at least 70000.</li>
+              <li>How many employees work in each department?</li>
+              <li>List the three most recently hired employees.</li>
+              <li>Show unpaid vacation absences lasting at least 5 days.</li>
             </ul>
           </div>
 
           <div class="qa-group">
-            <h3>2. Employee Details</h3>
-            <p>Retrieve specific information about employees.</p>
-            <p><strong>Example questions:</strong></p>
+            <h3>Performance-review meaning</h3>
+            <p>Qualitative evidence with explicit time and potential distinctions.</p>
             <ul>
-              <li>Show the email and salary of employees in Sales.</li>
-              <li>What is the hire date of Alice Müller?</li>
-              <li>Show first name and email of employees in HR.</li>
-              <li>List employee names and salaries in Engineering.</li>
-              <li>Show job title and hire date of Frank Neumann.</li>
+              <li>Who currently demonstrates strong organizational skills?</li>
+              <li>Who shows future potential to lead others?</li>
+              <li>Who needs to become more confident?</li>
+              <li>Who is ready now to take responsibility for a team?</li>
             </ul>
           </div>
 
           <div class="qa-group">
-            <h3>3. Filtering With Conditions</h3>
-            <p>Find employees matching specific criteria.</p>
-            <p><strong>Example questions:</strong></p>
+            <h3>Combined review + database questions</h3>
+            <p>Semantic review evidence constrained by trusted SQL.</p>
             <ul>
-              <li>Show employees with salary greater than 80000.</li>
-              <li>List employees hired before 2020.</li>
-              <li>Show employees in Engineering earning more than 70000.</li>
-              <li>List employees in HR hired after 2021.</li>
-              <li>Show employees with salary between 60000 and 90000.</li>
+              <li>How many Engineering employees currently demonstrate analytical strength?</li>
+              <li>Show Sales employees currently praised for teamwork.</li>
+              <li>List the two highest-paid employees who currently solve problems well.</li>
+              <li>Which active HR employees need stronger communication skills?</li>
             </ul>
           </div>
 
           <div class="qa-group">
-            <h3>4. Department Questions</h3>
-            <p>Ask questions about departments and budgets.</p>
-            <p><strong>Example questions:</strong></p>
+            <h3>Multilingual questions</h3>
+            <p>The same planning and evidence contract applies in every supported language.</p>
             <ul>
-              <li>Show department names and budgets.</li>
-              <li>Which departments have budget greater than 200000?</li>
-              <li>What is the budget of the HR department?</li>
-              <li>List departments ordered by budget.</li>
-              <li>Which department has the highest budget?</li>
+              <li>Wie viele aktive Mitarbeiter arbeiten im Vertrieb?</li>
+              <li>Quels employés des ventes ont actuellement de solides compétences en négociation ?</li>
+              <li>¿Quién muestra potencial futuro para liderar a otras personas?</li>
+              <li>كم عدد الموظفين في قسم الموارد البشرية؟</li>
             </ul>
           </div>
 
-          <div class="qa-group">
-            <h3>5. Manager and Reporting Structure</h3>
-            <p>Understand who manages whom.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>Who reports to Bob Schmidt?</li>
-              <li>Who reports to Frank Neumann?</li>
-              <li>Who is the manager of Greta Wolf?</li>
-              <li>Who is the manager of Hassan Ali?</li>
-              <li>Show employees managed by David Weber.</li>
-            </ul>
-          </div>
+          <details class="example-details">
+            <summary>Boundary and edge cases</summary>
+            <div class="qa-group edge-case-group">
+              <p>These demonstrate literal search, unavailable data, and valid empty results.</p>
+              <ul>
+                <li>Show employees whose performance review literally contains the phrase high-quality work.</li>
+                <li>What is the company's remote-work policy?</li>
+                <li>Show employees in the Finance department.</li>
+                <li>Show active employees hired after 2035-01-01.</li>
+              </ul>
+            </div>
+          </details>
 
-          <div class="qa-group">
-            <h3>6. Absence and Leave Tracking</h3>
-            <p>Analyze employee absences.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>Show all sick absences.</li>
-              <li>List paid vacation absences.</li>
-              <li>Show sick absences with more than 3 days.</li>
-              <li>Show absences for Alice Müller.</li>
-              <li>List absences ordered by start date.</li>
-            </ul>
-          </div>
-
-          <div class="qa-group">
-            <h3>7. Aggregated Information</h3>
-            <p>Ask for totals, averages, and counts.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>How many employees are in each department?</li>
-              <li>What is the average salary in Engineering?</li>
-              <li>What is the total salary in HR?</li>
-              <li>How many sick absences are there?</li>
-              <li>What is the maximum salary in each department?</li>
-            </ul>
-          </div>
-
-          <div class="qa-group">
-            <h3>8. Ranking and Top Results</h3>
-            <p>Find highest or lowest values.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>Top 3 highest paid employees.</li>
-              <li>Top 5 lowest paid employees.</li>
-              <li>Show the highest paid employee in HR.</li>
-              <li>Show the most recently hired employees.</li>
-              <li>Which department has the lowest budget?</li>
-            </ul>
-          </div>
-
-          <div class="qa-group">
-            <h3>9. Performance Review Search</h3>
-            <p>Search inside employee performance reviews.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>Show employees with leadership in their performance review.</li>
-              <li>Show employees with communication skills in their review.</li>
-              <li>List employees with strong analytical skills.</li>
-              <li>Show employees with organizational skills in reviews.</li>
-              <li>Find employees praised for teamwork.</li>
-            </ul>
-          </div>
-
-          <div class="qa-group">
-            <h3>10. Combined Conditions</h3>
-            <p>More complex business questions combining multiple conditions.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>Show employees in Engineering with salary above 70000 hired before 2021.</li>
-              <li>List employees in Sales earning more than 60000.</li>
-              <li>Show employees in HR with performance review containing communication.</li>
-              <li>Show sick absences for employees in Engineering.</li>
-              <li>List employees in departments with budget above 200000.</li>
-            </ul>
-          </div>
-
-          <div class="qa-group">
-            <h3>11. Semantic Search Over Performance Reviews</h3>
-            <p>Use vector search over unstructured performance review text to find employees by meaning, not only exact keywords.</p>
-            <p><strong>Example questions:</strong></p>
-            <ul>
-              <li>Which employees show leadership potential?</li>
-              <li>Who needs to improve communication?</li>
-              <li>Which employees are strong at mentoring others?</li>
-              <li>Who has strong strategic thinking?</li>
-              <li>Which employees are highly organized?</li>
-            </ul>
-          </div>
+          <details class="example-details">
+            <summary>Vague and unrelated questions</summary>
+            <div class="qa-group edge-case-group">
+              <p>These demonstrate helpful clarification, scope explanations, and classification evidence.</p>
+              <ul>
+                <li>What about them?</li>
+                <li>What will the weather be in Paris tomorrow?</li>
+              </ul>
+            </div>
+          </details>
         </div>
       </section>
 
       <section class="card chat-card">
         <div class="card-header-row">
           <h2>Chat with the Agent</h2>
+          <span class="system-status"><i></i>Ready</span>
         </div>
 
         <p class="chat-desc">Type a question and press Enter or click Send.</p>
