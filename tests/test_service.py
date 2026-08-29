@@ -118,6 +118,49 @@ class ServiceTests(unittest.TestCase):
         self.assertEqual(8, evidence["result"]["row_count"])
         self.assertEqual(["Engineering"], evidence["sql_parameters"])
 
+    def test_supported_answer_formatter_uses_audited_target_language(self):
+        plan = sql_plan(language="en")
+        formulated = {"answer": "Employee 1 matches the request."}
+        client = FakeClient([plan, formulated])
+        service = HRAgentService(
+            self.settings,
+            database=self.database,
+            client=client,
+            retriever=FakeRetriever([]),
+        )
+
+        traced = service.answer_with_trace(
+            "List the matching employees.",
+            use_ai_formulation=True,
+        )
+
+        self.assertEqual(formulated["answer"], traced["answer"])
+        formatter_prompt = client.chat_json_calls[-1][0]
+        self.assertIn("TARGET ANSWER LANGUAGE: English (en)", formatter_prompt)
+        self.assertIn(
+            "its language must never change the target answer language",
+            formatter_prompt,
+        )
+        self.assertEqual([], client.chat_text_calls)
+
+    def test_supported_answer_formatter_rejects_invalid_payload(self):
+        client = FakeClient([{"answer": "Unexpected", "extra": True}])
+        service = HRAgentService(
+            self.settings,
+            database=self.database,
+            client=client,
+            retriever=FakeRetriever([]),
+        )
+        deterministic = "first_name | last_name\nNico | Brandt"
+
+        answer = service._formulate_answer(
+            "Who matches?",
+            deterministic,
+            "en",
+        )
+
+        self.assertEqual(deterministic, answer)
+
     def test_unsupported_plan_is_localized_without_keyword_detection(self):
         plan = {
             "supported": False,

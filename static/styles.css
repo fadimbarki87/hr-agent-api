@@ -134,31 +134,6 @@ select,
   animation: content-arrive 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 0.08s both;
 }
 
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 15px;
-  padding: 8px 13px;
-  border: 1px solid rgba(78, 232, 197, 0.18);
-  border-radius: 999px;
-  background: rgba(11, 22, 35, 0.64);
-  color: #a9f8e8;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.hero-eyebrow span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 0 5px rgba(78, 232, 197, 0.1), 0 0 18px rgba(78, 232, 197, 0.72);
-}
-
 .hero-center h1 {
   margin: 0;
   font-family: "Space Grotesk", "Manrope", system-ui, sans-serif;
@@ -246,7 +221,7 @@ select,
   isolation: isolate;
   border-radius: 31px;
   filter: drop-shadow(0 18px 30px rgba(33, 215, 191, 0.18));
-  animation: brand-logo-arrive 3.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: brand-logo-arrive 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .brand-logo::before,
@@ -267,7 +242,7 @@ select,
 .brand-logo::after {
   inset: -5px;
   border: 1px solid rgba(111, 238, 214, 0.24);
-  animation: brand-logo-echo 3.6s ease-out both;
+  animation: brand-logo-echo 4s ease-in-out infinite;
 }
 
 .brand-logo svg {
@@ -302,9 +277,9 @@ select,
 .logo-orbit {
   stroke: url(#logo-ring-gradient);
   stroke-width: 1.35;
-  stroke-dasharray: 208;
+  stroke-dasharray: 42 12 9 14;
   transform-origin: 48px 48px;
-  animation: logo-orbit-draw 3.6s cubic-bezier(0.25, 0.7, 0.25, 1) both;
+  animation: logo-orbit-cycle 4s linear infinite;
 }
 
 .logo-signal {
@@ -312,19 +287,38 @@ select,
   stroke-width: 1.35;
   stroke-dasharray: 94;
   filter: url(#logo-glow);
-  animation: logo-signal-draw 3.6s ease both;
+  animation: logo-signal-cycle 4s ease-in-out infinite;
 }
 
-.logo-wordmark {
-  fill: url(#logo-text-gradient);
-  font-family: "Space Grotesk", "Manrope", sans-serif;
-  font-size: 29px;
-  font-weight: 700;
-  letter-spacing: -2px;
-  filter: url(#logo-glow);
+.logo-pulse-ring {
+  fill: none;
+  stroke: rgba(165, 156, 255, 0.5);
+  stroke-width: 1.2;
   transform-box: fill-box;
   transform-origin: center;
-  animation: logo-wordmark-settle 3.6s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+  animation: logo-pulse-cycle 4s ease-out infinite;
+}
+
+.logo-bar {
+  fill: url(#logo-text-gradient);
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: logo-bar-wave 4s cubic-bezier(0.35, 0, 0.2, 1) infinite;
+}
+
+.bar-two {
+  animation-delay: 0.18s;
+}
+
+.bar-three {
+  animation-delay: 0.36s;
+}
+
+.logo-baseline {
+  fill: none;
+  stroke: rgba(187, 251, 239, 0.7);
+  stroke-width: 1.3;
+  stroke-linecap: round;
 }
 
 .logo-node {
@@ -333,19 +327,19 @@ select,
   stroke-width: 0.7;
   transform-box: fill-box;
   transform-origin: center;
-  animation: logo-node-pop 0.55s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  animation: logo-node-cycle 4s ease-in-out infinite;
 }
 
-.node-one { animation-delay: 1.25s; }
-.node-two { animation-delay: 1.5s; }
-.node-three { animation-delay: 1.75s; }
-.node-four { animation-delay: 2s; }
+.node-one { animation-delay: 0s; }
+.node-two { animation-delay: 0.45s; }
+.node-three { animation-delay: 0.9s; }
+.node-four { animation-delay: 1.35s; }
 
 .logo-spark {
   fill: #fff;
   transform-box: fill-box;
   transform-origin: center;
-  animation: logo-spark-pop 3.6s ease both;
+  animation: logo-spark-cycle 4s ease-in-out infinite;
 }
 
 .profile-frame {
@@ -396,37 +390,44 @@ select,
 }
 
 @keyframes brand-logo-echo {
-  0%, 15% { opacity: 0; transform: scale(0.84); }
-  34% { opacity: 0.8; }
-  70%, 100% { opacity: 0.32; transform: scale(1); }
+  0%, 100% { opacity: 0.18; transform: scale(0.97); }
+  48% { opacity: 0.48; transform: scale(1.04); }
 }
 
-@keyframes logo-orbit-draw {
-  0%, 10% { stroke-dashoffset: 208; transform: rotate(-85deg); }
-  65%, 100% { stroke-dashoffset: 0; transform: rotate(0); }
+@keyframes logo-orbit-cycle {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes logo-signal-draw {
-  0%, 24% { stroke-dashoffset: 94; }
-  72%, 100% { stroke-dashoffset: 0; }
+@keyframes logo-signal-cycle {
+  0%, 12% { opacity: 0.22; stroke-dashoffset: 94; }
+  50%, 72% { opacity: 0.82; stroke-dashoffset: 0; }
+  100% { opacity: 0.22; stroke-dashoffset: -94; }
 }
 
-@keyframes logo-wordmark-settle {
-  0%, 18% { transform: scale(0.84); filter: url(#logo-glow) blur(5px); }
-  46% { transform: scale(1.06); filter: url(#logo-glow) blur(0); }
-  70%, 100% { transform: scale(1); filter: url(#logo-glow) blur(0); }
+@keyframes logo-pulse-cycle {
+  0%, 20% { opacity: 0; transform: scale(0.68); }
+  62% { opacity: 0.7; }
+  100% { opacity: 0; transform: scale(1.38); }
 }
 
-@keyframes logo-node-pop {
-  0% { opacity: 0; transform: scale(0); }
-  68% { opacity: 1; transform: scale(1.4); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes logo-bar-wave {
+  0%, 100% { opacity: 0.72; transform: scaleY(0.58); }
+  22% { opacity: 1; transform: scaleY(1); }
+  48% { opacity: 0.8; transform: scaleY(0.72); }
+  72% { opacity: 1; transform: scaleY(0.94); }
 }
 
-@keyframes logo-spark-pop {
-  0%, 54% { opacity: 0.2; transform: scale(0.75) rotate(-24deg); }
-  68% { opacity: 1; transform: scale(1.25) rotate(4deg); }
-  84%, 100% { opacity: 0.82; transform: scale(1) rotate(0); }
+@keyframes logo-node-cycle {
+  0%, 100% { opacity: 0.5; transform: scale(0.82); }
+  36% { opacity: 1; transform: scale(1.42); }
+  60% { opacity: 0.72; transform: scale(1); }
+}
+
+@keyframes logo-spark-cycle {
+  0%, 18%, 100% { opacity: 0.3; transform: scale(0.72) rotate(-22deg); }
+  48% { opacity: 1; transform: scale(1.32) rotate(8deg); }
+  68% { opacity: 0.72; transform: scale(1) rotate(0); }
 }
 
 @keyframes profile-arrive {
@@ -1304,12 +1305,6 @@ tbody tr:hover {
     display: block;
   }
 
-  .hero-eyebrow {
-    padding: 7px 10px;
-    font-size: 0.59rem;
-    letter-spacing: 0.08em;
-  }
-
   .subtitle {
     padding-inline: 2px;
   }
@@ -1397,7 +1392,8 @@ tbody tr:hover {
   .message,
   .logo-orbit,
   .logo-signal,
-  .logo-wordmark,
+  .logo-pulse-ring,
+  .logo-bar,
   .logo-node,
   .logo-spark,
   .chat-input-row button:disabled {
@@ -1410,7 +1406,8 @@ tbody tr:hover {
     transform: none;
   }
 
-  .logo-wordmark,
+  .logo-pulse-ring,
+  .logo-bar,
   .logo-node,
   .logo-spark {
     opacity: 1;
