@@ -3,77 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#eef1fb" />
+  <meta name="theme-color" content="#070a12" />
   <title>HR Data QA Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css?v=20260830-2" />
 </head>
 <body>
   <header class="hero">
     <div class="hero-top">
       <div class="hero-left">
         <div class="brand-logo" role="img" aria-label="HR Data QA Agent animated logo">
-          <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+          <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
             <defs>
-              <linearGradient id="logo-base-gradient" x1="8" y1="5" x2="72" y2="76" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="#11172a" />
-                <stop offset="0.52" stop-color="#30246f" />
-                <stop offset="1" stop-color="#126d78" />
+              <linearGradient id="logo-base-gradient" x1="7" y1="5" x2="89" y2="91" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#151b35" />
+                <stop offset="0.5" stop-color="#302083" />
+                <stop offset="1" stop-color="#075f73" />
               </linearGradient>
-              <linearGradient id="logo-line-gradient" x1="18" y1="16" x2="64" y2="63" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#b9f4ff" />
-                <stop offset="0.45" stop-color="#a5b4fc" />
-                <stop offset="1" stop-color="#f0abfc" />
+              <linearGradient id="logo-ring-gradient" x1="14" y1="12" x2="84" y2="88" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#62f6d4" />
+                <stop offset="0.48" stop-color="#7c8cff" />
+                <stop offset="1" stop-color="#f071ff" />
               </linearGradient>
-              <linearGradient id="logo-sheen-gradient" x1="0" y1="0" x2="1" y2="0">
-                <stop stop-color="#ffffff" stop-opacity="0" />
-                <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.34" />
-                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
-              </linearGradient>
-              <radialGradient id="logo-core-gradient">
+              <linearGradient id="logo-text-gradient" x1="25" y1="28" x2="70" y2="66" gradientUnits="userSpaceOnUse">
                 <stop stop-color="#ffffff" />
-                <stop offset="0.45" stop-color="#c4f7ff" />
-                <stop offset="1" stop-color="#8b5cf6" />
+                <stop offset="0.58" stop-color="#dce4ff" />
+                <stop offset="1" stop-color="#9ff9ea" />
+              </linearGradient>
+              <radialGradient id="logo-glow-gradient">
+                <stop stop-color="#7cf7df" stop-opacity="0.5" />
+                <stop offset="1" stop-color="#7c8cff" stop-opacity="0" />
               </radialGradient>
-              <clipPath id="logo-clip">
-                <rect x="2" y="2" width="76" height="76" rx="23" />
-              </clipPath>
               <filter id="logo-glow" x="-80%" y="-80%" width="260%" height="260%">
-                <feGaussianBlur stdDeviation="2.4" result="blur" />
+                <feGaussianBlur stdDeviation="2.1" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
             </defs>
-
-            <rect class="logo-base" x="2" y="2" width="76" height="76" rx="23" fill="url(#logo-base-gradient)" />
-            <path class="logo-ambient" d="M9 53C20 30 40 20 70 19" />
-            <circle class="logo-orbit" cx="40" cy="40" r="27" />
-            <path class="logo-monogram" d="M25 25V55M55 25V55M25 40H55" />
-            <path class="logo-network" d="M25 25L40 40L55 25M25 55L40 40L55 55" />
+            <circle class="logo-back-glow" cx="48" cy="48" r="45" fill="url(#logo-glow-gradient)" />
+            <rect class="logo-base" x="5" y="5" width="86" height="86" rx="27" fill="url(#logo-base-gradient)" />
+            <rect class="logo-border" x="5.75" y="5.75" width="84.5" height="84.5" rx="26.25" />
+            <circle class="logo-orbit" cx="48" cy="48" r="33" />
+            <path class="logo-signal" d="M20 62C30 53 34 42 42 42C50 42 51 56 58 56C65 56 68 42 77 34" />
+            <text class="logo-wordmark" x="48" y="56" text-anchor="middle">HR</text>
             <g class="logo-nodes" filter="url(#logo-glow)">
-              <circle class="logo-node node-one" cx="25" cy="25" r="3.1" />
-              <circle class="logo-node node-two" cx="55" cy="25" r="3.1" />
-              <circle class="logo-node node-three" cx="25" cy="55" r="3.1" />
-              <circle class="logo-node node-four" cx="55" cy="55" r="3.1" />
-              <circle class="logo-core" cx="40" cy="40" r="4.5" fill="url(#logo-core-gradient)" />
+              <circle class="logo-node node-one" cx="20" cy="62" r="3" />
+              <circle class="logo-node node-two" cx="42" cy="42" r="3" />
+              <circle class="logo-node node-three" cx="58" cy="56" r="3" />
+              <circle class="logo-node node-four" cx="77" cy="34" r="3" />
             </g>
-            <path class="logo-spark" d="M61 14L62.6 18.1L67 19.7L62.6 21.3L61 25.4L59.4 21.3L55 19.7L59.4 18.1Z" />
-            <g clip-path="url(#logo-clip)">
-              <rect class="logo-sheen" x="-35" y="-6" width="18" height="92" fill="url(#logo-sheen-gradient)" transform="rotate(18 0 0)" />
-            </g>
+            <path class="logo-spark" d="M73 17L75 22L80 24L75 26L73 31L71 26L66 24L71 22Z" />
           </svg>
         </div>
       </div>
 
       <div class="hero-center">
-        <p class="hero-eyebrow"><span></span>People intelligence, grounded in data</p>
+        <p class="hero-eyebrow"><span></span>People intelligence, grounded in evidence</p>
         <h1>HR Data <span class="title-accent">QA Agent</span></h1>
         <p class="subtitle">
-          Chat with the 3 tables, employees, departments, and absences, and ask any question the HR team needs.
+          Ask trusted questions across employees, departments, absences, and performance-review evidence.
         </p>
         <p class="lang-note">The agent understands English, German, French, Spanish, and Arabic.</p>
 
@@ -94,16 +86,21 @@
       <section class="card examples-card compact-card">
         <div class="card-header-row">
           <div>
+            <span class="card-kicker">Question library</span>
             <h2>Try a question</h2>
-            <p class="examples-intro">Select an example to place it in the chat.</p>
+            <p class="examples-intro">Explore structured data, reviews, combined analysis, multilingual queries, boundaries, and clarification.</p>
           </div>
-          <span class="example-count">22 curated examples</span>
         </div>
 
         <div class="scroll-box compact-scroll">
           <div class="qa-group">
-            <h3>Structured HR data</h3>
-            <p>Filters, aggregation, ordering, and exact database values.</p>
+            <div class="qa-group-heading">
+              <span class="qa-index">01</span>
+              <div>
+                <h3>Structured HR data</h3>
+                <p>Filters, aggregation, ordering, and exact database values.</p>
+              </div>
+            </div>
             <ul>
               <li>Show active Engineering employees earning at least 70000.</li>
               <li>How many employees work in each department?</li>
@@ -113,8 +110,13 @@
           </div>
 
           <div class="qa-group">
-            <h3>Performance-review meaning</h3>
-            <p>Qualitative evidence with explicit time and potential distinctions.</p>
+            <div class="qa-group-heading">
+              <span class="qa-index">02</span>
+              <div>
+                <h3>Performance-review meaning</h3>
+                <p>Qualitative evidence with explicit time and potential distinctions.</p>
+              </div>
+            </div>
             <ul>
               <li>Who currently demonstrates strong organizational skills?</li>
               <li>Who shows future potential to lead others?</li>
@@ -124,8 +126,13 @@
           </div>
 
           <div class="qa-group">
-            <h3>Combined review + database questions</h3>
-            <p>Semantic review evidence constrained by trusted SQL.</p>
+            <div class="qa-group-heading">
+              <span class="qa-index">03</span>
+              <div>
+                <h3>Combined review + database questions</h3>
+                <p>Semantic review evidence constrained by trusted SQL.</p>
+              </div>
+            </div>
             <ul>
               <li>How many Engineering employees currently demonstrate analytical strength?</li>
               <li>Show Sales employees currently praised for teamwork.</li>
@@ -135,8 +142,13 @@
           </div>
 
           <div class="qa-group">
-            <h3>Multilingual questions</h3>
-            <p>The same planning and evidence contract applies in every supported language.</p>
+            <div class="qa-group-heading">
+              <span class="qa-index">04</span>
+              <div>
+                <h3>Multilingual questions</h3>
+                <p>The same planning and evidence contract applies in every supported language.</p>
+              </div>
+            </div>
             <ul>
               <li>Wie viele aktive Mitarbeiter arbeiten im Vertrieb?</li>
               <li>Quels employés des ventes ont actuellement de solides compétences en négociation ?</li>
@@ -145,35 +157,44 @@
             </ul>
           </div>
 
-          <details class="example-details">
-            <summary>Boundary and edge cases</summary>
-            <div class="qa-group edge-case-group">
-              <p>These demonstrate literal search, unavailable data, and valid empty results.</p>
-              <ul>
-                <li>Show employees whose performance review literally contains the phrase high-quality work.</li>
-                <li>What is the company's remote-work policy?</li>
-                <li>Show employees in the Finance department.</li>
-                <li>Show active employees hired after 2035-01-01.</li>
-              </ul>
+          <div class="qa-group">
+            <div class="qa-group-heading">
+              <span class="qa-index">05</span>
+              <div>
+                <h3>Boundary and edge cases</h3>
+                <p>Literal search, unavailable data, and valid empty results.</p>
+              </div>
             </div>
-          </details>
+            <ul>
+              <li>Show employees whose performance review literally contains the phrase high-quality work.</li>
+              <li>What is the company's remote-work policy?</li>
+              <li>Show employees in the Finance department.</li>
+              <li>Show active employees hired after 2035-01-01.</li>
+            </ul>
+          </div>
 
-          <details class="example-details">
-            <summary>Vague and unrelated questions</summary>
-            <div class="qa-group edge-case-group">
-              <p>These demonstrate helpful clarification, scope explanations, and classification evidence.</p>
-              <ul>
-                <li>What about them?</li>
-                <li>What will the weather be in Paris tomorrow?</li>
-              </ul>
+          <div class="qa-group">
+            <div class="qa-group-heading">
+              <span class="qa-index">06</span>
+              <div>
+                <h3>Vague and unrelated questions</h3>
+                <p>Helpful clarification, scope explanations, and classification evidence.</p>
+              </div>
             </div>
-          </details>
+            <ul>
+              <li>What about them?</li>
+              <li>What will the weather be in Paris tomorrow?</li>
+            </ul>
+          </div>
         </div>
       </section>
 
       <section class="card chat-card">
         <div class="card-header-row">
-          <h2>Chat with the Agent</h2>
+          <div>
+            <span class="card-kicker">Evidence-aware assistant</span>
+            <h2>Chat with the Agent</h2>
+          </div>
           <span class="system-status"><i></i>Ready</span>
         </div>
 
@@ -249,6 +270,6 @@
     </section>
   </main>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=20260830-2"></script>
 </body>
 </html>
