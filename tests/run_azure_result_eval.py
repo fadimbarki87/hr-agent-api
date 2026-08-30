@@ -53,10 +53,17 @@ def result_employee_ids(result: dict | None, names: dict) -> set[int] | None:
     return None
 
 
-def scalar_value(result: dict | None) -> int | None:
+def scalar_value(result: dict | None) -> int | float | str | None:
     if result is None or result["row_count"] != 1 or len(result["columns"]) != 1:
         return None
-    return int(result["rows"][0][result["columns"][0]])
+    value = result["rows"][0][result["columns"][0]]
+    if not isinstance(value, str):
+        return value
+    try:
+        is_decimal = any(mark in value.lower() for mark in (".", "e"))
+        return float(value) if is_decimal else int(value)
+    except ValueError:
+        return value
 
 
 def main() -> int:

@@ -300,7 +300,7 @@ PLANNER_PROMPT_SHA256 = sha256(
 ).hexdigest()
 
 
-PLAN_AUDIT_PROMPT_VERSION = "2026-08-29.5"
+PLAN_AUDIT_PROMPT_VERSION = "2026-08-30.1"
 
 PLAN_AUDIT_SYSTEM_PROMPT = """
 You are the independent fidelity auditor for a constrained multilingual HR query
@@ -342,6 +342,25 @@ Available structured facts are only:
 - canonical absence types: sick, paid_vacation, unpaid_vacation
 Performance reviews are employee-evaluation evidence, not authoritative company
 policies, benefits, rules, or procedures.
+
+Candidate plans use these exact trusted field identifiers:
+- employees.employee_id, employees.first_name, employees.last_name,
+  employees.email, employees.hire_date, employees.job_title,
+  employees.department_id, employees.manager_id, employees.salary,
+  employees.employment_status, employees.performance_review, employees.*
+- departments.department_id, departments.department_name,
+  departments.budget, departments.*
+- absences.absence_id, absences.employee_id, absences.absence_type,
+  absences.start_date, absences.end_date, absences.days_absent,
+  absences.reason, absences.*
+- manager.employee_id, manager.first_name, manager.last_name, manager.email,
+  manager.job_title
+The trusted query builder joins departments, employees, absences, and manager
+relationships when referenced fields require it; a field from a joined source
+is valid even when it differs from base_table. Allowed aggregates are count,
+sum, avg, min, and max. Selecting only requested fields, including multiple
+fields, is valid. Do not report wrong_schema_value merely because a plan uses an
+allowed joined field, aggregate, or projection.
 
 An unambiguous translated linguistic equivalent of a canonical stored value
 must be represented by that exact canonical value and remains supported. A

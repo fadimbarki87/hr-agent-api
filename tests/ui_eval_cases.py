@@ -12,27 +12,75 @@ class UIEvalCase:
     unsupported_category: str = "none"
     semantic_scope: str = "none"
     row_count: int | None = None
-    scalar_value: int | None = None
+    scalar_value: int | float | str | None = None
     semantic_ids: frozenset[int] | None = None
     final_ids: frozenset[int] | None = None
 
 
 UI_EVAL_CASES = (
     UIEvalCase(
-        "Show active Engineering employees earning at least 70000.",
-        "sql_only", "en", row_count=6,
+        "Show all employees in Engineering.",
+        "sql_only", "en", row_count=8,
     ),
     UIEvalCase(
-        "How many employees work in each department?",
+        "Show the email and salary of employees in Sales.",
         "sql_only", "en", row_count=3,
     ),
     UIEvalCase(
-        "List the three most recently hired employees.",
+        "Show employees with salary between 60000 and 90000.",
+        "sql_only", "en",
+    ),
+    UIEvalCase(
+        "List employees hired before 2020.",
+        "sql_only", "en",
+    ),
+    UIEvalCase(
+        "How many employees are in each department?",
         "sql_only", "en", row_count=3,
     ),
     UIEvalCase(
-        "Show unpaid vacation absences lasting at least 5 days.",
-        "sql_only", "en", status="empty", row_count=0,
+        "What is the average salary in Engineering?",
+        "sql_only", "en", row_count=1, scalar_value=75625.0,
+    ),
+    UIEvalCase(
+        "Top 3 highest paid employees.",
+        "sql_only", "en", row_count=3,
+    ),
+    UIEvalCase(
+        "Which departments have budget greater than 200000?",
+        "sql_only", "en", row_count=2,
+    ),
+    UIEvalCase(
+        "Who reports to Bob Schmidt?",
+        "sql_only", "en",
+    ),
+    UIEvalCase(
+        "Who is the manager of Greta Wolf?",
+        "sql_only", "en", row_count=1,
+    ),
+    UIEvalCase(
+        "Show all sick absences.",
+        "sql_only", "en",
+    ),
+    UIEvalCase(
+        "Show absences for Alice Müller.",
+        "sql_only", "en",
+    ),
+    UIEvalCase(
+        "Wie viele aktive Mitarbeiter arbeiten im Vertrieb?",
+        "sql_only", "de", scalar_value=3,
+    ),
+    UIEvalCase(
+        "Quels sont les employés actifs du service des ventes ?",
+        "sql_only", "fr", row_count=3,
+    ),
+    UIEvalCase(
+        "¿Qué empleados trabajan en el departamento de Ingeniería?",
+        "sql_only", "es", row_count=8,
+    ),
+    UIEvalCase(
+        "كم عدد الموظفين في قسم الموارد البشرية؟",
+        "sql_only", "ar", scalar_value=4,
     ),
     UIEvalCase(
         "Who currently demonstrates strong organizational skills?",
@@ -40,58 +88,9 @@ UI_EVAL_CASES = (
         semantic_ids=frozenset({3, 11}),
     ),
     UIEvalCase(
-        "Who shows future potential to lead others?",
-        "review_semantic", "en", semantic_scope="future_potential",
-        semantic_ids=frozenset({1}),
-    ),
-    UIEvalCase(
-        "Who needs to become more confident?",
-        "review_semantic", "en", semantic_scope="development_need",
-        semantic_ids=frozenset({12}),
-    ),
-    UIEvalCase(
-        "Who is ready now to take responsibility for a team?",
-        "review_semantic", "en", semantic_scope="readiness",
-        semantic_ids=frozenset({4, 6, 11}),
-    ),
-    UIEvalCase(
-        "How many Engineering employees currently demonstrate analytical strength?",
-        "review_semantic_plus_sql", "en", semantic_scope="current_strength",
-        scalar_value=1, semantic_ids=frozenset({13}),
-    ),
-    UIEvalCase(
         "Show Sales employees currently praised for teamwork.",
         "review_semantic_plus_sql", "en", semantic_scope="current_strength",
         semantic_ids=frozenset({4, 9}), final_ids=frozenset({4}),
-    ),
-    UIEvalCase(
-        "List the two highest-paid employees who currently solve problems well.",
-        "review_semantic_plus_sql", "en", semantic_scope="current_strength",
-        semantic_ids=frozenset({1, 14}), final_ids=frozenset({1, 14}),
-    ),
-    UIEvalCase(
-        "Which active HR employees need stronger communication skills?",
-        "review_semantic_plus_sql", "en", status="empty",
-        semantic_scope="development_need", row_count=0,
-        semantic_ids=frozenset({1}), final_ids=frozenset(),
-    ),
-    UIEvalCase(
-        "Wie viele aktive Mitarbeiter arbeiten im Vertrieb?",
-        "sql_only", "de", scalar_value=3,
-    ),
-    UIEvalCase(
-        "Quels employés des ventes ont actuellement de solides compétences en négociation ?",
-        "review_semantic_plus_sql", "fr", semantic_scope="current_strength",
-        semantic_ids=frozenset({4}), final_ids=frozenset({4}),
-    ),
-    UIEvalCase(
-        "¿Quién muestra potencial futuro para liderar a otras personas?",
-        "review_semantic", "es", semantic_scope="future_potential",
-        semantic_ids=frozenset({1}),
-    ),
-    UIEvalCase(
-        "كم عدد الموظفين في قسم الموارد البشرية؟",
-        "sql_only", "ar", scalar_value=4,
     ),
     UIEvalCase(
         "Show employees whose performance review literally contains the phrase high-quality work.",
@@ -123,4 +122,4 @@ UI_EVAL_CASES = (
     ),
 )
 
-assert len(UI_EVAL_CASES) == 22
+assert len(UI_EVAL_CASES) == 24

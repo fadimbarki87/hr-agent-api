@@ -102,7 +102,7 @@
           <div>
             <span class="card-kicker">Question library</span>
             <h2>Try a question</h2>
-            <p class="examples-intro">Explore structured data, reviews, combined analysis, multilingual queries, boundaries, and clarification.</p>
+            <p class="examples-intro">Start with reliable SQL analysis across employees, departments, managers, salaries, and absences. Review search remains available when meaning matters.</p>
           </div>
         </div>
 
@@ -111,15 +111,15 @@
             <div class="qa-group-heading">
               <span class="qa-index">01</span>
               <div>
-                <h3>Structured HR data</h3>
-                <p>Filters, aggregation, ordering, and exact database values.</p>
+                <h3>Employee records and filters</h3>
+                <p>Exact fields, dates, salaries, and department values.</p>
               </div>
             </div>
             <ul>
-              <li>Show active Engineering employees earning at least 70000.</li>
-              <li>How many employees work in each department?</li>
-              <li>List the three most recently hired employees.</li>
-              <li>Show unpaid vacation absences lasting at least 5 days.</li>
+              <li>Show all employees in Engineering.</li>
+              <li>Show the email and salary of employees in Sales.</li>
+              <li>Show employees with salary between 60000 and 90000.</li>
+              <li>List employees hired before 2020.</li>
             </ul>
           </div>
 
@@ -127,15 +127,15 @@
             <div class="qa-group-heading">
               <span class="qa-index">02</span>
               <div>
-                <h3>Performance-review meaning</h3>
-                <p>Qualitative evidence with explicit time and potential distinctions.</p>
+                <h3>Aggregations and rankings</h3>
+                <p>Counts, averages, top results, and budget comparisons.</p>
               </div>
             </div>
             <ul>
-              <li>Who currently demonstrates strong organizational skills?</li>
-              <li>Who shows future potential to lead others?</li>
-              <li>Who needs to become more confident?</li>
-              <li>Who is ready now to take responsibility for a team?</li>
+              <li>How many employees are in each department?</li>
+              <li>What is the average salary in Engineering?</li>
+              <li>Top 3 highest paid employees.</li>
+              <li>Which departments have budget greater than 200000?</li>
             </ul>
           </div>
 
@@ -143,15 +143,15 @@
             <div class="qa-group-heading">
               <span class="qa-index">03</span>
               <div>
-                <h3>Combined review + database questions</h3>
-                <p>Semantic review evidence constrained by trusted SQL.</p>
+                <h3>Managers and absences</h3>
+                <p>Reporting relationships and exact absence records.</p>
               </div>
             </div>
             <ul>
-              <li>How many Engineering employees currently demonstrate analytical strength?</li>
-              <li>Show Sales employees currently praised for teamwork.</li>
-              <li>List the two highest-paid employees who currently solve problems well.</li>
-              <li>Which active HR employees need stronger communication skills?</li>
+              <li>Who reports to Bob Schmidt?</li>
+              <li>Who is the manager of Greta Wolf?</li>
+              <li>Show all sick absences.</li>
+              <li>Show absences for Alice Müller.</li>
             </ul>
           </div>
 
@@ -159,14 +159,14 @@
             <div class="qa-group-heading">
               <span class="qa-index">04</span>
               <div>
-                <h3>Multilingual questions</h3>
-                <p>The same planning and evidence contract applies in every supported language.</p>
+                <h3>Multilingual SQL</h3>
+                <p>Structured questions across all five supported languages.</p>
               </div>
             </div>
             <ul>
               <li>Wie viele aktive Mitarbeiter arbeiten im Vertrieb?</li>
-              <li>Quels employés des ventes ont actuellement de solides compétences en négociation ?</li>
-              <li>¿Quién muestra potencial futuro para liderar a otras personas?</li>
+              <li>Quels sont les employés actifs du service des ventes ?</li>
+              <li>¿Qué empleados trabajan en el departamento de Ingeniería?</li>
               <li>كم عدد الموظفين في قسم الموارد البشرية؟</li>
             </ul>
           </div>
@@ -174,6 +174,20 @@
           <div class="qa-group">
             <div class="qa-group-heading">
               <span class="qa-index">05</span>
+              <div>
+                <h3>Review evidence, when needed</h3>
+                <p>A small secondary capability for questions that require meaning, not exact text.</p>
+              </div>
+            </div>
+            <ul>
+              <li>Who currently demonstrates strong organizational skills?</li>
+              <li>Show Sales employees currently praised for teamwork.</li>
+            </ul>
+          </div>
+
+          <div class="qa-group">
+            <div class="qa-group-heading">
+              <span class="qa-index">06</span>
               <div>
                 <h3>Boundary and edge cases</h3>
                 <p>Literal search, unavailable data, and valid empty results.</p>
@@ -189,7 +203,7 @@
 
           <div class="qa-group">
             <div class="qa-group-heading">
-              <span class="qa-index">06</span>
+              <span class="qa-index">07</span>
               <div>
                 <h3>Vague and unrelated questions</h3>
                 <p>Helpful clarification, scope explanations, and classification evidence.</p>

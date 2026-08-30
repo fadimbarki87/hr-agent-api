@@ -1,7 +1,7 @@
 # Evaluation record
 
 This file records the acceptance evidence for the 2026-08-29 architecture
-change. Live scripts used the configured Azure deployment
+change and the 2026-08-30 SQL-first website library. Live scripts used the configured Azure deployment
 `gpt-4.1-mini-2025-04-14` and embeddings deployment
 `text-embedding-3-small`. Credentials were loaded only from ignored
 `.env.test`; they are not stored in these results.
@@ -18,12 +18,12 @@ change. Live scripts used the configured Azure deployment
 - Risk-focused hybrid regression through the final audited architecture:
   **5/5**, covering semantic counts, empty evidence, initiative precision,
   current strength versus future potential, and readiness.
-- Curated website examples under the current contract: **22/22** end-to-end.
+- Curated website examples under the current contract: **24/24** end-to-end.
   The contract checks route, language, status, unsupported category, semantic
   scope, row/scalar result, semantic employee IDs, and final SQL-filtered IDs.
-  The final capped run used 70 successful calls, 133,472 chat prompt tokens,
-  3,830 completion tokens, and 263 embedding tokens, with no exceptions.
-- Local final gate: **68 tests passed**, with one API module skipped only in the
+  The final capped run used 54 successful calls, 130,257 chat prompt tokens,
+  3,157 completion tokens, and 214 embedding tokens, with no exceptions.
+- Local final gate: **69 tests passed**, with one API module skipped only in the
   local Python 3.14 interpreter because FastAPI is not installed there. CI uses
   Python 3.11, installs the locked runtime requirements, and executes that
   module. Python compilation, JavaScript syntax, and `git diff --check` passed.
@@ -39,7 +39,7 @@ validated; it receives no HR rows and cannot execute a route or query.
 | Component | Version | SHA-256 |
 | --- | --- | --- |
 | Planner | `2026-08-29.6` | `2e2d9331e295455075d120ceb7ee89b345cfd9dfea40eddd774f53852f800026` |
-| Plan auditor | `2026-08-29.5` | `647d17f1d24de3a3ca44c15b2afed37cc7f788c7aa05dbeab93c8a012bf8fda9` |
+| Plan auditor | `2026-08-30.1` | `d7b22ed8bb5cafa5f390f559f985271f2d28debd53393ef2ec2fc295163d3667` |
 | Repair policy | `2026-08-29.3` | `62cc186f5b49954dd1f71923474603f6c824e05f7ebd17a8c98dc934a7538f6e` |
 | Boundary guidance | `2026-08-29.2` | `ca3f49348ccaaa9e88438e5fa40d1aaa5fed992b1ff6591f50410e339e0bac1d` |
 | Review reranker | `2026-08-29.1` | `54312380f103736f539d596f6310842c0627775d03fed5476d6d15e779a3cc49` |
@@ -56,8 +56,11 @@ free-form suggested questions sometimes introduced arbitrary filters, so that
 field was removed rather than trusted. The independent auditor also initially
 rejected a correct translated reference to the stored `HR` department value;
 the schema contract now explicitly defines `HR` as the stored abbreviation for
-Human Resources in any language. The focused control then passed in one
-planner/auditor cycle, and the complete 22-question final run passed.
+Human Resources in any language. The SQL-first website run later exposed that
+the auditor lacked the planner's exact identifiers, join behavior, aggregate
+set, and projection rules, causing it to reject otherwise valid plans. Those
+general schema rules are now explicit; the focused regressions passed **4/4**
+and the complete website run passed **24/24**.
 
 ## Frozen blind holdout v1
 
