@@ -51,6 +51,24 @@ UI_EVAL_CASES = (
         "sql_only", "en", row_count=2,
     ),
     UIEvalCase(
+        "List active Sales employees' first names, last names, and emails, sorted alphabetically by last name.",
+        "sql_only", "en", row_count=3, final_ids=frozenset({4, 8, 12}),
+    ),
+    UIEvalCase(
+        "For each department, show the department name and total employee salary.",
+        "sql_only", "en", row_count=3,
+    ),
+    UIEvalCase(
+        "Show the four newest hires with their first names, last names, and hire dates.",
+        "sql_only", "en", row_count=4,
+        final_ids=frozenset({5, 10, 12, 13}),
+    ),
+    UIEvalCase(
+        "List first names, last names, and hire dates for employees hired between 2020-01-01 and 2021-12-31 inclusive.",
+        "sql_only", "en", row_count=6,
+        final_ids=frozenset({1, 3, 7, 9, 13, 15}),
+    ),
+    UIEvalCase(
         "Who reports to Bob Schmidt?",
         "sql_only", "en",
     ),
@@ -122,4 +140,4 @@ UI_EVAL_CASES = (
     ),
 )
 
-assert len(UI_EVAL_CASES) == 24
+assert len(UI_EVAL_CASES) == 28

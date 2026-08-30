@@ -18,11 +18,15 @@ change and the 2026-08-30 SQL-first website library. Live scripts used the confi
 - Risk-focused hybrid regression through the final audited architecture:
   **5/5**, covering semantic counts, empty evidence, initiative precision,
   current strength versus future potential, and readiness.
-- Curated website examples under the current contract: **24/24** end-to-end.
+- Curated website examples under the current contract: **28/28** across their
+  release gates.
   The contract checks route, language, status, unsupported category, semantic
   scope, row/scalar result, semantic employee IDs, and final SQL-filtered IDs.
-  The final capped run used 54 successful calls, 130,257 chat prompt tokens,
-  3,157 completion tokens, and 214 embedding tokens, with no exceptions.
+  The base 24-question capped run used 54 successful calls, 130,257 chat prompt
+  tokens, 3,157 completion tokens, and 214 embedding tokens. The four promoted
+  advanced SQL examples then passed exact-plan and executed-result checks
+  **4/4**, using eight successful chat calls, 21,234 prompt tokens, and 557
+  completion tokens without embeddings or exceptions.
 - Local final gate: **69 tests passed**, with one API module skipped only in the
   local Python 3.14 interpreter because FastAPI is not installed there. CI uses
   Python 3.11, installs the locked runtime requirements, and executes that
@@ -60,7 +64,31 @@ Human Resources in any language. The SQL-first website run later exposed that
 the auditor lacked the planner's exact identifiers, join behavior, aggregate
 set, and projection rules, causing it to reject otherwise valid plans. Those
 general schema rules are now explicit; the focused regressions passed **4/4**
-and the complete website run passed **24/24**.
+and the then-current complete website run passed **24/24**.
+
+## Frozen deterministic SQL stress benchmark
+
+Before its first live run, a new corpus and the current production planner,
+auditor, and repair-policy identities were frozen. The corpus SHA-256 is
+`35ce718324ce694abb750c50c3ce81aa03cf252d615e60701484e4e6c6daeb88`.
+It contains 100 unique questions: 20 independent deterministic SQL intents,
+each expressed in English, German, French, Spanish, and Arabic. It has no exact
+overlap with earlier evaluation corpora, website questions, or production
+prompts.
+
+Result: **98/100 exact intents** and **98/100 correct executed results**. All 98
+executable plans returned the expected database result; the other two cases
+failed safely without executing SQL. English, French, and Arabic scored 20/20;
+German and Spanish scored 19/20. Eighteen of the 20 SQL categories scored 5/5.
+The run used 204 Azure calls, 535,422 chat prompt tokens, and 13,562 completion
+tokens, with 202 successful responses and two transient `URLError` retries.
+
+The German failure treated a translated Engineering value inside a two-value
+department choice as unavailable. The Spanish failure selected employee ID
+instead of the requested absence ID, after which the auditor rejected both
+attempts and no plan executed. Read-only diagnostic repeats reproduced both
+failures. Production code and prompts were deliberately not tuned against this
+frozen corpus.
 
 ## Frozen blind holdout v1
 
