@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#070a12" />
+  <meta name="theme-color" content="#f2f5fc" />
   <title>HR Data QA Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/styles.css?v=20260830-3" />
+  <link rel="stylesheet" href="/static/styles.css?v=20260830-4" />
 </head>
 <body>
   <header class="hero">
     <div class="hero-top">
       <div class="hero-left">
-        <div class="brand-logo" role="img" aria-label="HR Data QA Agent animated logo">
+        <div class="brand-logo" role="img" aria-label="Animated people and HR analytics logo">
           <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
             <defs>
               <linearGradient id="logo-base-gradient" x1="7" y1="5" x2="89" y2="91" gradientUnits="userSpaceOnUse">
@@ -47,22 +47,31 @@
             <circle class="logo-back-glow" cx="48" cy="48" r="45" fill="url(#logo-glow-gradient)" />
             <rect class="logo-base" x="5" y="5" width="86" height="86" rx="27" fill="url(#logo-base-gradient)" />
             <rect class="logo-border" x="5.75" y="5.75" width="84.5" height="84.5" rx="26.25" />
-            <circle class="logo-orbit" cx="48" cy="48" r="33" />
-            <path class="logo-signal" d="M20 62C30 53 34 42 42 42C50 42 51 56 58 56C65 56 68 42 77 34" />
-            <circle class="logo-pulse-ring" cx="48" cy="49" r="20" />
+            <path class="logo-connector" d="M24 33Q48 14 72 33" />
+            <g class="logo-people" filter="url(#logo-glow)">
+              <g class="logo-person person-left">
+                <circle cx="24" cy="37" r="5.5" />
+                <path d="M14 59C14 49.5 18 45 24 45C30 45 34 49.5 34 59Z" />
+              </g>
+              <g class="logo-person person-center">
+                <circle cx="48" cy="29" r="7" />
+                <path d="M34 59C34 47.5 39.5 41.5 48 41.5C56.5 41.5 62 47.5 62 59Z" />
+              </g>
+              <g class="logo-person person-right">
+                <circle cx="72" cy="37" r="5.5" />
+                <path d="M62 59C62 49.5 66 45 72 45C78 45 82 49.5 82 59Z" />
+              </g>
+            </g>
             <g class="logo-bars" filter="url(#logo-glow)">
-              <rect class="logo-bar bar-one" x="29" y="45" width="8" height="20" rx="4" />
-              <rect class="logo-bar bar-two" x="44" y="34" width="8" height="31" rx="4" />
-              <rect class="logo-bar bar-three" x="59" y="40" width="8" height="25" rx="4" />
-              <path class="logo-baseline" d="M27 68H69" />
+              <rect class="logo-bar bar-one" x="31" y="69" width="8" height="9" rx="3" />
+              <rect class="logo-bar bar-two" x="44" y="63" width="8" height="15" rx="3" />
+              <rect class="logo-bar bar-three" x="57" y="66" width="8" height="12" rx="3" />
+              <path class="logo-baseline" d="M27 81H69" />
             </g>
-            <g class="logo-nodes" filter="url(#logo-glow)">
-              <circle class="logo-node node-one" cx="20" cy="62" r="3" />
-              <circle class="logo-node node-two" cx="42" cy="42" r="3" />
-              <circle class="logo-node node-three" cx="58" cy="56" r="3" />
-              <circle class="logo-node node-four" cx="77" cy="34" r="3" />
-            </g>
-            <path class="logo-spark" d="M73 17L75 22L80 24L75 26L73 31L71 26L66 24L71 22Z" />
+            <circle class="logo-data-node node-left" cx="24" cy="33" r="2.4" />
+            <circle class="logo-data-node node-center" cx="48" cy="18" r="2.4" />
+            <circle class="logo-data-node node-right" cx="72" cy="33" r="2.4" />
+            <path class="logo-spark" d="M78 14L79.7 18.3L84 20L79.7 21.7L78 26L76.3 21.7L72 20L76.3 18.3Z" />
           </svg>
         </div>
       </div>
@@ -275,6 +284,6 @@
     </section>
   </main>
 
-  <script src="/static/app.js?v=20260830-3"></script>
+  <script src="/static/app.js?v=20260830-4"></script>
 </body>
 </html>

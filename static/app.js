@@ -49,6 +49,25 @@ function formatClassificationSource(source) {
   return labels[source] || source || "Unknown";
 }
 
+function formatPlanningSource(source) {
+  const labels = {
+    azure_openai_structured_plan_with_audit: "Azure OpenAI plan + independent audit"
+  };
+
+  return labels[source] || source || "Unknown";
+}
+
+function formatSemanticScope(scope) {
+  const labels = {
+    current_strength: "Current demonstrated strength",
+    future_potential: "Future potential",
+    development_need: "Development need",
+    readiness: "Current readiness"
+  };
+
+  return labels[scope] || scope || "Unknown";
+}
+
 function createEvidenceItem(label, value, options = {}) {
   const item = document.createElement("div");
   item.className = "evidence-item";
@@ -187,11 +206,23 @@ function createEvidencePanel(evidence) {
   button.type = "button";
   button.className = "evidence-toggle";
   button.setAttribute("aria-expanded", "false");
-  button.textContent = "Evidence";
+  button.textContent = "Show evidence";
 
   const panel = document.createElement("div");
   panel.className = "evidence-panel";
   panel.hidden = true;
+
+  const panelHeader = document.createElement("div");
+  panelHeader.className = "evidence-panel-header";
+
+  const panelTitle = document.createElement("strong");
+  panelTitle.textContent = "Evidence trail";
+
+  const panelDescription = document.createElement("span");
+  panelDescription.textContent = "How the answer was produced and which records matched.";
+
+  panelHeader.append(panelTitle, panelDescription);
+  panel.appendChild(panelHeader);
 
   const summary = document.createElement("div");
   summary.className = "evidence-grid";
@@ -199,7 +230,7 @@ function createEvidencePanel(evidence) {
     createEvidenceItem("Outcome", formatStatusLabel(evidence.status), { badge: evidence.status || "unsupported" }),
     createEvidenceItem("Route used", formatRouteLabel(evidence.route_used)),
     createEvidenceItem("Normalized question", evidence.normalized_question || ""),
-    createEvidenceItem("Planning source", evidence.route_source || "Unknown")
+    createEvidenceItem("Planning source", formatPlanningSource(evidence.route_source))
   );
 
   if (evidence.route_requested && evidence.route_requested !== evidence.route_used) {
@@ -235,7 +266,7 @@ function createEvidencePanel(evidence) {
 
   if (evidence.semantic_scope && evidence.semantic_scope !== "none") {
     panel.appendChild(
-      createEvidenceItem("Semantic scope", evidence.semantic_scope)
+      createEvidenceItem("Semantic scope", formatSemanticScope(evidence.semantic_scope))
     );
   }
 
@@ -291,7 +322,7 @@ function createEvidencePanel(evidence) {
   button.addEventListener("click", () => {
     const isOpen = !panel.hidden;
     panel.hidden = isOpen;
-    button.textContent = isOpen ? "Evidence" : "Hide evidence";
+    button.textContent = isOpen ? "Show evidence" : "Hide evidence";
     button.setAttribute("aria-expanded", String(!isOpen));
   });
 
